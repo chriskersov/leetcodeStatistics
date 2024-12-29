@@ -16,6 +16,7 @@
 		991F4D032D208CD4004F5E86 /* LeetCode_StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F4D022D208CD4004F5E86 /* LeetCode_StatisticsTests.swift */; };
 		991F4D0D2D208CD4004F5E86 /* LeetCode_StatisticsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F4D0C2D208CD4004F5E86 /* LeetCode_StatisticsUITests.swift */; };
 		991F4D0F2D208CD4004F5E86 /* LeetCode_StatisticsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F4D0E2D208CD4004F5E86 /* LeetCode_StatisticsUITestsLaunchTests.swift */; };
+		994C89D22D22175800EC3682 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C89D12D22175800EC3682 /* Colour.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		991F4D082D208CD4004F5E86 /* LeetCode StatisticsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LeetCode StatisticsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		991F4D0C2D208CD4004F5E86 /* LeetCode_StatisticsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCode_StatisticsUITests.swift; sourceTree = "<group>"; };
 		991F4D0E2D208CD4004F5E86 /* LeetCode_StatisticsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCode_StatisticsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		994C89D12D22175800EC3682 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		991F4CEB2D208CD2004F5E86 /* LeetCode Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				994C89D02D22174200EC3682 /* Extensions */,
 				991F4CEC2D208CD2004F5E86 /* LeetCode_StatisticsApp.swift */,
 				991F4CEE2D208CD2004F5E86 /* ContentView.swift */,
 				991F4CF02D208CD4004F5E86 /* Assets.xcassets */,
@@ -131,6 +134,14 @@
 				991F4D0E2D208CD4004F5E86 /* LeetCode_StatisticsUITestsLaunchTests.swift */,
 			);
 			path = "LeetCode StatisticsUITests";
+			sourceTree = "<group>";
+		};
+		994C89D02D22174200EC3682 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				994C89D12D22175800EC3682 /* Colour.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				994C89D22D22175800EC3682 /* Colour.swift in Sources */,
 				991F4CF62D208CD4004F5E86 /* Persistence.swift in Sources */,
 				991F4CEF2D208CD2004F5E86 /* ContentView.swift in Sources */,
 				991F4CF92D208CD4004F5E86 /* LeetCode_Statistics.xcdatamodeld in Sources */,
