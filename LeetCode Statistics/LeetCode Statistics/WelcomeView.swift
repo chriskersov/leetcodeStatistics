@@ -9,8 +9,9 @@ import SwiftUI
 import CoreData
 
 struct WelcomeView: View {
+    @State var username = ""
+    @FocusState private var isFocused: Bool
     var body: some View {
-        @State var username = ""
         ZStack {
             Color.backgroundColourDark
                 .edgesIgnoringSafeArea(.all)
@@ -51,8 +52,8 @@ struct WelcomeView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 40)
                 .font(.leetcodeFontLetsGo)
-                .background(Color.backgroundColourTwoDark)
-                .foregroundColor(.fontColourGrey)
+                .background(Color.leetcodeYellowTwo)
+                .foregroundColor(.leetcodeYellow)
                 .cornerRadius(5)
             }
             .padding()
