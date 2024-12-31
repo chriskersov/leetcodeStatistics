@@ -9,8 +9,70 @@ import SwiftUI
 import CoreData
 
 struct WelcomeView: View {
-    @State var username = ""
-    @FocusState private var isFocused: Bool
+    @State private var username = ""
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+    @State private var showError = false
+    
+    func fetchLeetCodeStats() async {
+        print("Starting API call for username: \(username)")  // Add this
+        let query = """
+        {
+            matchedUser(username: "\(username)") {
+                username
+                submitStats {
+                    acSubmissionNum {
+                        count
+                        difficulty
+                    }
+                }
+            }
+        }
+        """
+        
+        guard let url = URL(string: "https://leetcode.com/graphql") else {
+            errorMessage = "Invalid URL"
+            showError = true
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body = ["query": query]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+            print("Making network request...")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            print("Got response: \(response)")
+            
+            if let jsonString = String(data: data, encoding: .utf8) {
+                print("Response data: \(jsonString)")
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200 else {
+                errorMessage = "Server error"
+                showError = true
+                return
+            }
+            
+            // Updated decoding part
+            let decoder = JSONDecoder()
+            let leetCodeResponse = try decoder.decode(LeetCodeResponse.self, from: data)
+            print("Found user: \(leetCodeResponse.data.matchedUser.username)")
+            print("Total problems solved: \(leetCodeResponse.data.matchedUser.submitStats.acSubmissionNum[0].count)")
+            
+        } catch {
+            print("Error occurred: \(error)")
+            errorMessage = "Error: \(error.localizedDescription)"
+            showError = true
+        }
+    }
+    
     var body: some View {
         ZStack {
             Color.backgroundColourDark
@@ -46,8 +108,22 @@ struct WelcomeView: View {
                     )
                     .padding(.bottom, 15)
                 
-                Button("Let's Go") {
-                    // action here
+                Button(action: {
+                    if !username.isEmpty {
+                        isLoading = true
+                        // Create a Task to run our async function
+                        Task {
+                            await fetchLeetCodeStats()
+                            isLoading = false
+                        }
+                    }
+                }) {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .leetcodeYellow))
+                    } else {
+                        Text("Let's Go")
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 40)
@@ -55,11 +131,19 @@ struct WelcomeView: View {
                 .background(Color.leetcodeYellowTwo)
                 .foregroundColor(.leetcodeYellow)
                 .cornerRadius(5)
+                .disabled(username.isEmpty || isLoading)
             }
             .padding()
         }
+        .alert("Error", isPresented: $showError, presenting: errorMessage) { _ in
+            Button("OK", role: .cancel) {}
+        } message: { error in
+            Text(error)
+        }
     }
 }
+
+
 
 #Preview {
     WelcomeView()
