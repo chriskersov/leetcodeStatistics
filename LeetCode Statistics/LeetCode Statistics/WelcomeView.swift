@@ -18,13 +18,13 @@ struct WelcomeView: View {
         print("Starting API call for username: \(username)")  // Add this
         let query = """
         {
-          matchedUser(username: "${username}") {
+          matchedUser(username: "\(username)") {
             username
             profile {
               ranking
               reputation
               starRating
-              viewCount
+              postViewCount
             }
             submitStats {
               acSubmissionNum {
@@ -36,12 +36,6 @@ struct WelcomeView: View {
                 difficulty
                 count
                 submissions
-              }
-            }
-            submitStatsGlobal {
-              acSubmissionNum {
-                difficulty
-                count
               }
             }
             userCalendar {
@@ -57,6 +51,13 @@ struct WelcomeView: View {
               }
               submissionCalendar
             }
+          }
+          recentAcSubmissionList(username: "\(username)", limit: 10) {
+            id
+            title
+            titleSlug
+            timestamp
+            langName
           }
         }
         """
@@ -93,20 +94,73 @@ struct WelcomeView: View {
             
             // Updated decoding part
             let decoder = JSONDecoder()
+            
             let leetCodeResponse = try decoder.decode(LeetCodeResponse.self, from: data)
             let user = leetCodeResponse.data.matchedUser
-            
+                    
+            print("\nUser Profile:")
+            print("-------------------------")
             print("Username: \(user.username)")
-            print("Ranking: \(user.profile.ranking)")
+            print("Rank: \(user.profile.ranking)")
             print("Reputation: \(user.profile.reputation)")
-            print("Views: \(user.profile.viewCount)")
-            
-            if let calendarData = user.userCalendar.submissionCalendar.data(using: .utf8),
-               let calendarDict = try? JSONSerialization.jsonObject(with: calendarData) as? [String: Int] {
-                // Process submission calendar data
-                print("Submission calendar entries: \(calendarDict.count)")
+            print("Profile Views: \(user.profile.postViewCount)")
+
+            // Calculate acceptance rate from accepted submissions vs total submissions
+            let totalAcceptedSubmissions = user.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.submissions ?? 0
+            let totalSubmissions = user.submitStats.totalSubmissionNum.first(where: { $0.difficulty == "All" })?.submissions ?? 0
+            let acceptanceRate = totalSubmissions > 0 ? (Double(totalAcceptedSubmissions) / Double(totalSubmissions) * 100) : 0
+
+            print("\nSubmission Overview:")
+            print("-------------------------")
+            print("Total Problems Solved: \(user.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.count ?? 0)")
+            print("Total Submissions: \(totalSubmissions)")
+            print("Acceptance Rate: \(String(format: "%.1f", acceptanceRate))%")
+
+            print("\nProblem Solving Statistics:")
+            print("-------------------------")
+            ["Easy", "Medium", "Hard"].forEach { difficulty in
+                let solved = user.submitStats.acSubmissionNum.first(where: { $0.difficulty == difficulty })?.count ?? 0
+                print("\(difficulty):")
+                print("  - Solved: \(solved)")
+            }
+
+            print("\nActivity Statistics:")
+            print("-------------------------")
+            print("Active Days: \(user.userCalendar.totalActiveDays)")
+            print("Current Streak: \(user.userCalendar.streak)")
+
+            print("\nRecent Submissions:")
+            print("-------------------------")
+            leetCodeResponse.data.recentAcSubmissionList.forEach { submission in
+                if let timestamp = Int(submission.timestamp) {
+                    let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .medium
+                    formatter.timeStyle = .short
+                    
+                    print("\(formatter.string(from: date))")
+                    print("  - Problem: \(submission.title)")
+                    print("  - Language: \(submission.langName)")
+                    print("")
+                }
             }
             
+        } catch let decodingError as DecodingError {
+            // Handle specific decoding errors
+            switch decodingError {
+            case .keyNotFound(let key, let context):
+                print("Missing key: \(key)\nContext: \(context)")
+            case .typeMismatch(let type, let context):
+                print("Type mismatch: \(type)\nContext: \(context)")
+            case .valueNotFound(let type, let context):
+                print("Value not found: \(type)\nContext: \(context)")
+            case .dataCorrupted(let context):
+                print("Data corrupted: \(context)")
+            @unknown default:
+                print("Unknown decoding error: \(decodingError)")
+            }
+            errorMessage = "Error decoding response: \(decodingError.localizedDescription)"
+            showError = true
         } catch {
             print("Error occurred: \(error)")
             errorMessage = "Error: \(error.localizedDescription)"
