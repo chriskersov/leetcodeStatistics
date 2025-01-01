@@ -18,15 +18,46 @@ struct WelcomeView: View {
         print("Starting API call for username: \(username)")  // Add this
         let query = """
         {
-            matchedUser(username: "\(username)") {
-                username
-                submitStats {
-                    acSubmissionNum {
-                        count
-                        difficulty
-                    }
-                }
+          matchedUser(username: "${username}") {
+            username
+            profile {
+              ranking
+              reputation
+              starRating
+              viewCount
             }
+            submitStats {
+              acSubmissionNum {
+                difficulty
+                count
+                submissions
+              }
+              totalSubmissionNum {
+                difficulty
+                count
+                submissions
+              }
+            }
+            submitStatsGlobal {
+              acSubmissionNum {
+                difficulty
+                count
+              }
+            }
+            userCalendar {
+              activeYears
+              streak
+              totalActiveDays
+              dccBadges {
+                timestamp
+                badge {
+                  name
+                  icon
+                }
+              }
+              submissionCalendar
+            }
+          }
         }
         """
         
@@ -63,8 +94,18 @@ struct WelcomeView: View {
             // Updated decoding part
             let decoder = JSONDecoder()
             let leetCodeResponse = try decoder.decode(LeetCodeResponse.self, from: data)
-            print("Found user: \(leetCodeResponse.data.matchedUser.username)")
-            print("Total problems solved: \(leetCodeResponse.data.matchedUser.submitStats.acSubmissionNum[0].count)")
+            let user = leetCodeResponse.data.matchedUser
+            
+            print("Username: \(user.username)")
+            print("Ranking: \(user.profile.ranking)")
+            print("Reputation: \(user.profile.reputation)")
+            print("Views: \(user.profile.viewCount)")
+            
+            if let calendarData = user.userCalendar.submissionCalendar.data(using: .utf8),
+               let calendarDict = try? JSONSerialization.jsonObject(with: calendarData) as? [String: Int] {
+                // Process submission calendar data
+                print("Submission calendar entries: \(calendarDict.count)")
+            }
             
         } catch {
             print("Error occurred: \(error)")
