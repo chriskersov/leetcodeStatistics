@@ -118,10 +118,15 @@ struct WelcomeView: View {
 
             print("\nProblem Solving Statistics:")
             print("-------------------------")
+            let totalEasy = 846
+            let totalMedium = 1775
+            let totalHard = 785
+            
             ["Easy", "Medium", "Hard"].forEach { difficulty in
                 let solved = user.submitStats.acSubmissionNum.first(where: { $0.difficulty == difficulty })?.count ?? 0
+                let total = difficulty == "Easy" ? totalEasy : (difficulty == "Medium" ? totalMedium : totalHard)
                 print("\(difficulty):")
-                print("  - Solved: \(solved)")
+                print("  - \(solved)/\(total) solved")
             }
 
             print("\nActivity Statistics:")
