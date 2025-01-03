@@ -11,5 +11,6 @@ extension Font {
     static let leetcodeFont = Font.system(size: 33, weight: .heavy)
     static let leetcodeFontUsername = Font.system(size: 20, weight: .medium)
     static let leetcodeFontLetsGo = Font.system(size: 20, weight: .heavy)
+    static let leetcodeFontStandard = Font.system(size: 20, weight: .medium)
 
 }

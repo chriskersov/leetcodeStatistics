@@ -6,21 +6,17 @@
 //
 
 // Main response structures for the LeetCode API
+// Models.swift
+
+import Foundation
+
 struct LeetCodeResponse: Codable {
-    let data: LeetCodeData
+    let data: DataClass
 }
 
-struct LeetCodeData: Codable {
+struct DataClass: Codable {
     let matchedUser: MatchedUser
-    let recentAcSubmissionList: [RecentSubmission]  // Note the exact casing
-}
-
-struct RecentSubmission: Codable {
-    let id: String
-    let title: String
-    let titleSlug: String
-    let timestamp: String
-    let langName: String
+    let recentAcSubmissionList: [RecentSubmission]
 }
 
 struct MatchedUser: Codable {
@@ -28,7 +24,6 @@ struct MatchedUser: Codable {
     let profile: Profile
     let submitStats: SubmitStats
     let userCalendar: UserCalendar
-    // Removed recentACSubmissionList from here since it's at the top level
 }
 
 struct Profile: Codable {
@@ -39,19 +34,14 @@ struct Profile: Codable {
 }
 
 struct SubmitStats: Codable {
-    let acSubmissionNum: [SubmissionCount]
-    let totalSubmissionNum: [SubmissionCount]
+    let acSubmissionNum: [SubmissionNum]
+    let totalSubmissionNum: [SubmissionNum]
 }
 
-struct SubmissionCount: Codable {
+struct SubmissionNum: Codable {
     let difficulty: String
     let count: Int
     let submissions: Int
-}
-
-struct ProblemSolvedStat: Codable {
-    let difficulty: String
-    let percentage: Double?
 }
 
 struct UserCalendar: Codable {
@@ -70,4 +60,12 @@ struct DccBadge: Codable {
 struct Badge: Codable {
     let name: String
     let icon: String
+}
+
+struct RecentSubmission: Codable {
+    let id: String
+    let title: String
+    let titleSlug: String
+    let timestamp: String
+    let langName: String
 }
