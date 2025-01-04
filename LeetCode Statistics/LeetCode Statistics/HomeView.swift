@@ -42,51 +42,73 @@ struct HomeView: View {
                     .background(Color.backgroundColourTwoDark)
                     .cornerRadius(5)
                     
-                    // Stats Overview
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Problem Solving")
-                            .font(.leetcodeFont)
-                            .foregroundColor(.leetcodeYellow)
                         
-                        VStack(spacing: 16) {
-                            // Total Problems
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("\(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.count ?? 0) / 3406")
-                                    .font(.leetcodeFontStandard)
-                                    .foregroundColor(.fontColourWhite)
-                            }
-                            
-                            // Difficulty Breakdown
-                            ForEach(["Easy", "Medium", "Hard"], id: \.self) { difficulty in
-                                let solved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == difficulty })?.count ?? 0
-                                let total = difficulty == "Easy" ? 846 : (difficulty == "Medium" ? 1775 : 785)
-                                let progressValue = Double(solved) / Double(total)
+                        HStack(spacing: 24) {
+                            // Left side: Progress Circle
+                            ZStack {
+                                let easySolved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Easy" })?.count ?? 0
+                                let mediumSolved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Medium" })?.count ?? 0
+                                let hardSolved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Hard" })?.count ?? 0
+                                let totalSolved = easySolved + mediumSolved + hardSolved
                                 
-                                VStack(alignment: .leading, spacing: 4) {
-                                    HStack {
-                                        Text(difficulty)
-                                            .foregroundColor(difficultyColor(difficulty))
-                                        Spacer()
-                                        Text("\(solved)/\(total)")
-                                            .foregroundColor(.fontColourGrey)
-                                    }
-                                    
-                                    GeometryReader { geometry in
-                                        ZStack(alignment: .leading) {
-                                            Rectangle()
-                                                .frame(width: geometry.size.width, height: 6)
-                                                .opacity(0.3)
-                                                .foregroundColor(.fontColourGrey)
-                                            
-                                            Rectangle()
-                                                .frame(width: geometry.size.width * CGFloat(progressValue), height: 6)
-                                                .foregroundColor(difficultyColor(difficulty))
-                                        }
-                                        .cornerRadius(3)
-                                    }
-                                    .frame(height: 6)
+                                // Background circle
+                                Circle()
+                                    .stroke(Color.backgroundColourDark, lineWidth: 10)
+                                    .frame(width: 120, height: 120)
+                                
+                                // Easy section
+                                Circle()
+                                    .trim(from: 0, to: Double(easySolved) / 846)
+                                    .stroke(Color.easyBlue, style: StrokeStyle(lineWidth: 10, lineCap: .butt))
+                                    .frame(width: 120, height: 120)
+                                    .rotationEffect(.degrees(-90))
+                                
+                                // Medium section
+                                Circle()
+                                    .trim(from: Double(easySolved) / 846, to: Double(easySolved) / 846 + Double(mediumSolved) / 1775)
+                                    .stroke(Color.mediumYellow, style: StrokeStyle(lineWidth: 10, lineCap: .butt))
+                                    .frame(width: 120, height: 120)
+                                    .rotationEffect(.degrees(-90))
+                                
+                                // Hard section
+                                Circle()
+                                    .trim(from: Double(easySolved) / 846 + Double(mediumSolved) / 1775,
+                                          to: Double(easySolved) / 846 + Double(mediumSolved) / 1775 + Double(hardSolved) / 785)
+                                    .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 10, lineCap: .butt))
+                                    .frame(width: 120, height: 120)
+                                    .rotationEffect(.degrees(-90))
+                                
+                                // Center text
+                                VStack(spacing: 2) {
+                                    Text("\(totalSolved)")
+                                        .font(.system(size: 24, weight: .bold))
+                                        .foregroundColor(.fontColourWhite)
+                                    Text("/3406")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.fontColourGrey)
                                 }
                             }
+                            
+                            // Right side: Problem counts
+                            VStack(alignment: .leading, spacing: 12) {
+                                ForEach(["Easy", "Medium", "Hard"], id: \.self) { difficulty in
+                                    let solved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == difficulty })?.count ?? 0
+                                    let total = difficulty == "Easy" ? 846 : (difficulty == "Medium" ? 1775 : 785)
+                                    
+                                    HStack(spacing: 8) {
+                                        Text("\(solved)/\(total)")
+                                            .foregroundColor(.fontColourWhite)
+                                            .font(.leetcodeFontStandard)
+                                        
+                                        Text(difficulty.lowercased())
+                                            .foregroundColor(difficultyColor(difficulty))
+                                            .font(.leetcodeFontStandard)
+                                    }
+                                }
+                            }
+                            
+                            Spacer()
                         }
                     }
                     .padding()

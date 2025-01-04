@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		991BD18D2D287D94006AA4B0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991BD18C2D287D94006AA4B0 /* HomeView.swift */; };
 		991BD18F2D28814B006AA4B0 /* LeetCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991BD18E2D28814B006AA4B0 /* LeetCodeService.swift */; };
+		991BD1912D29F496006AA4B0 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991BD1902D29F496006AA4B0 /* MockData.swift */; };
 		991F4CED2D208CD2004F5E86 /* LeetCode_StatisticsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F4CEC2D208CD2004F5E86 /* LeetCode_StatisticsApp.swift */; };
 		991F4CF12D208CD4004F5E86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 991F4CF02D208CD4004F5E86 /* Assets.xcassets */; };
 		991F4CF42D208CD4004F5E86 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 991F4CF32D208CD4004F5E86 /* Preview Assets.xcassets */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		991BD18C2D287D94006AA4B0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		991BD18E2D28814B006AA4B0 /* LeetCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCodeService.swift; sourceTree = "<group>"; };
+		991BD1902D29F496006AA4B0 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		991F4CE92D208CD2004F5E86 /* LeetCode Statistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LeetCode Statistics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		991F4CEC2D208CD2004F5E86 /* LeetCode_StatisticsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCode_StatisticsApp.swift; sourceTree = "<group>"; };
 		991F4CEE2D208CD2004F5E86 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; wrapsLines = 1; };
@@ -118,6 +120,7 @@
 				99B664682D24B3BC00262197 /* LeetCodeUser.swift */,
 				991BD18C2D287D94006AA4B0 /* HomeView.swift */,
 				991BD18E2D28814B006AA4B0 /* LeetCodeService.swift */,
+				991BD1902D29F496006AA4B0 /* MockData.swift */,
 			);
 			path = "LeetCode Statistics";
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				99B664692D24B3BC00262197 /* LeetCodeUser.swift in Sources */,
 				991F4CF62D208CD4004F5E86 /* Persistence.swift in Sources */,
 				994C89D52D2224CD00EC3682 /* WelcomeView.swift in Sources */,
+				991BD1912D29F496006AA4B0 /* MockData.swift in Sources */,
 				994C89D42D221AA600EC3682 /* Font.swift in Sources */,
 				991BD18D2D287D94006AA4B0 /* HomeView.swift in Sources */,
 				991F4CF92D208CD4004F5E86 /* LeetCode_Statistics.xcdatamodeld in Sources */,
