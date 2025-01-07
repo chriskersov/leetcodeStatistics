@@ -19,4 +19,7 @@ extension Color {
     static let mediumYellow: Color = Color(red: 254/255, green: 182/255, blue: 0/255)
     static let easyBlue: Color = Color(red: 27/255, green: 186/255, blue: 186/255)
     static let leetcodeGreen: Color = Color(red: 45/255, green: 187/255, blue: 93/255)
+    static let hardRedTwo: Color = Color(red: 85/255, green: 46/255, blue: 44/255)
+    static let mediumYellowTwo: Color = Color(red: 88/255, green: 73/255, blue: 38/255)
+    static let easyBlueTwo: Color = Color(red: 38/255, green: 73/255, blue: 73/255)
 }
