@@ -44,72 +44,94 @@ struct HomeView: View {
                     
                     VStack(alignment: .leading, spacing: 12) {
                         
-                        HStack(spacing: 24) {
-                            // Left side: Progress Circle
+                        HStack(alignment: .center, spacing: 24) {
+                            // Circular Progress with Stats
                             ZStack {
-                                let easySolved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Easy" })?.count ?? 0
-                                let mediumSolved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Medium" })?.count ?? 0
-                                let hardSolved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Hard" })?.count ?? 0
-                                let totalSolved = easySolved + mediumSolved + hardSolved
-                                
-                                // Background circle
+                                // Background Circle (darker)
                                 Circle()
-                                    .stroke(Color.backgroundColourDark, lineWidth: 10)
-                                    .frame(width: 120, height: 120)
+                                    .stroke(Color.backgroundColourTwoDark, lineWidth: 8)
+                                    .frame(width: 180, height: 180)
                                 
-                                // Easy section
+                                // Easy (bottom, 180 to 240 degrees)
                                 Circle()
-                                    .trim(from: 0, to: Double(easySolved) / 846)
-                                    .stroke(Color.easyBlue, style: StrokeStyle(lineWidth: 10, lineCap: .butt))
-                                    .frame(width: 120, height: 120)
-                                    .rotationEffect(.degrees(-90))
+                                    .trim(from: 0.375, to: 0.611) // 180 to 240 degrees
+                                    .stroke(Color.easyBlue, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                    .frame(width: 180, height: 180)
+                                    .rotationEffect(.degrees(0))
                                 
-                                // Medium section
+                                // Medium (right side, 300 to 360 degrees)
                                 Circle()
-                                    .trim(from: Double(easySolved) / 846, to: Double(easySolved) / 846 + Double(mediumSolved) / 1775)
-                                    .stroke(Color.mediumYellow, style: StrokeStyle(lineWidth: 10, lineCap: .butt))
-                                    .frame(width: 120, height: 120)
-                                    .rotationEffect(.degrees(-90))
+                                    .trim(from: 0.639, to: 0.861) // 300 to 360 degrees
+                                    .stroke(Color.mediumYellow, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                    .frame(width: 180, height: 180)
+                                    .rotationEffect(.degrees(0))
                                 
-                                // Hard section
+                                // Hard (top, 60 to 120 degrees)
                                 Circle()
-                                    .trim(from: Double(easySolved) / 846 + Double(mediumSolved) / 1775,
-                                          to: Double(easySolved) / 846 + Double(mediumSolved) / 1775 + Double(hardSolved) / 785)
-                                    .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 10, lineCap: .butt))
-                                    .frame(width: 120, height: 120)
-                                    .rotationEffect(.degrees(-90))
+                                    .trim(from: 0.889, to: 1.125) // 60 to 120 degrees
+                                    .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                    .frame(width: 180, height: 180)
+                                    .rotationEffect(.degrees(0))
                                 
-                                // Center text
+                                // Center Stats
                                 VStack(spacing: 2) {
-                                    Text("\(totalSolved)")
-                                        .font(.system(size: 24, weight: .bold))
+                                    Text("\(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.count ?? 0)")
+                                        .font(.system(size: 36, weight: .bold, design: .monospaced))
                                         .foregroundColor(.fontColourWhite)
+                                    
                                     Text("/3406")
                                         .font(.system(size: 14))
                                         .foregroundColor(.fontColourGrey)
+                                    
+                                    Text("Solved")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.leetcodeGreen)
+                                        .padding(.top, 2)
+                                    
+                                    Text("1 Attempting")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.fontColourGrey)
+                                        .padding(.top, 1)
                                 }
                             }
                             
-                            // Right side: Problem counts
-                            VStack(alignment: .leading, spacing: 12) {
+                            // Vertical centering container for difficulty stats
+                            // Vertical centering container for difficulty stats
+                            VStack(alignment: .leading, spacing: 16) {
+                                Spacer()
+                                
+                                // Difficulty stats in vertical layout
                                 ForEach(["Easy", "Medium", "Hard"], id: \.self) { difficulty in
                                     let solved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == difficulty })?.count ?? 0
                                     let total = difficulty == "Easy" ? 846 : (difficulty == "Medium" ? 1775 : 785)
                                     
-                                    HStack(spacing: 8) {
-                                        Text("\(solved)/\(total)")
-                                            .foregroundColor(.fontColourWhite)
-                                            .font(.leetcodeFontStandard)
+                                    ZStack {
+                                        // Background rectangle with fixed size
+                                        Rectangle()
+                                            .fill(Color.backgroundColourThreeDark)
+                                            .frame(width: 100, height: 50)
+                                            .cornerRadius(4)
                                         
-                                        Text(difficulty.lowercased())
-                                            .foregroundColor(difficultyColor(difficulty))
-                                            .font(.leetcodeFontStandard)
+                                        // Content
+                                        VStack(spacing: 2) {
+                                            Text(difficulty == "Medium" ? "Med." : difficulty)
+                                                .font(.system(size: 16, weight: .medium))
+                                                .foregroundColor(difficultyColor(difficulty))
+                                            
+                                            Text("\(solved)/\(total)")
+                                                .font(.system(size: 16))
+                                                .foregroundColor(.fontColourWhite)
+                                        }
+                                        .padding(.horizontal, 8)
                                     }
                                 }
+                                
+                                Spacer()
                             }
-                            
-                            Spacer()
+                            .frame(height: 180)
                         }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 10)
                     }
                     .padding()
                     .background(Color.backgroundColourTwoDark)
