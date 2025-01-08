@@ -22,137 +22,222 @@ struct HomeView: View {
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    // Profile Card
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(leetCodeStats.data.matchedUser.username)
-                            .font(.leetcodeFont)
-                            .foregroundColor(.leetcodeYellow)
-                            .padding(.bottom, 4)
-                        
-                        Text("Rank: #\(leetCodeStats.data.matchedUser.profile.ranking)")
-                            .font(.system(.headline))
-                            .foregroundColor(.fontColourWhite)
-                        
-                        Text("\(leetCodeStats.data.matchedUser.profile.reputation) reputation")
-                            .font(.system(.subheadline))
-                            .foregroundColor(.fontColourGrey)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .background(Color.backgroundColourTwoDark)
-                    .cornerRadius(5)
+//                    // Profile Card
+//                    VStack(alignment: .leading, spacing: 8) {
+//                        Text(leetCodeStats.data.matchedUser.username)
+//                            .font(.leetcodeFont)
+//                            .foregroundColor(.leetcodeYellow)
+//                            .padding(.bottom, 4)
+//                        
+//                        Text("Rank: #\(leetCodeStats.data.matchedUser.profile.ranking)")
+//                            .font(.system(.headline))
+//                            .foregroundColor(.fontColourWhite)
+//                        
+//                        Text("\(leetCodeStats.data.matchedUser.profile.reputation) reputation")
+//                            .font(.system(.subheadline))
+//                            .foregroundColor(.fontColourGrey)
+//                    }
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                    .padding()
+//                    .background(Color.backgroundColourTwoDark)
+//                    .cornerRadius(5)
                     
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack(alignment: .center, spacing: 24) {
-                            // Circular Progress with Stats
-                            ZStack {
-                                // Background Circle (darker)
-                                Circle()
-                                    .stroke(Color.backgroundColourTwoDark, lineWidth: 8)
-                                    .frame(width: 180, height: 180)
-                                
-                                // Easy background
-                                Circle()
-                                    .trim(from: 0.264, to: 0.569)
-                                    .stroke(Color.easyBlueTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                    .frame(width: 180, height: 180)
-                                    .rotationEffect(.degrees(0))
-                                
-                                // Easy progress
-                                Circle()
-                                    .trim(from: 0.264, to: 0.264 + (0.569 - 0.264) * (CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Easy" })?.count ?? 0) / 846.0))
-                                    .stroke(Color.easyBlue, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                    .frame(width: 180, height: 180)
-                                    .rotationEffect(.degrees(0))
-                                
-                                // Medium background
-                                Circle()
-                                    .trim(from: 0.597, to: 0.903)
-                                    .stroke(Color.mediumYellowTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                    .frame(width: 180, height: 180)
-                                    .rotationEffect(.degrees(0))
-                                
-                                // Medium progress
-                                Circle()
-                                    .trim(from: 0.597, to: 0.597 + (0.903 - 0.597) * (CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Medium" })?.count ?? 0) / 1775.0))
-                                    .stroke(Color.mediumYellow, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                    .frame(width: 180, height: 180)
-                                    .rotationEffect(.degrees(0))
-                                
-                                // Hard background (split into two parts)
-                                Group {
-                                    Circle()
-                                        .trim(from: 0.931, to: 1.0)
-                                        .stroke(Color.hardRedTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                        .frame(width: 180, height: 180)
-                                        .rotationEffect(.degrees(0))
-                                    
-                                    Circle()
-                                        .trim(from: 0.0, to: 0.236)
-                                        .stroke(Color.hardRedTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                        .frame(width: 180, height: 180)
-                                        .rotationEffect(.degrees(0))
-                                }
-                                
-                                // Hard progress
-                                let hardSolved = CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Hard" })?.count ?? 0)
-                                let hardTotal: CGFloat = 785.0
-                                let hardProgress = hardSolved / hardTotal
-                                let hardTotalLength = (1.0 - 0.931) + 0.236  // Total arc length
-                                let hardProgressLength = hardTotalLength * hardProgress
-                                
-                                Group {
-                                    if hardProgressLength <= (1.0 - 0.931) {
-                                        // Progress fits before 1.0
-                                        Circle()
-                                            .trim(from: 0.931, to: 0.931 + hardProgressLength)
-                                            .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                    } else {
-                                        // Progress needs to wrap around
-                                        Circle()
-                                            .trim(from: 0.931, to: 1.0)
-                                            .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                        
-                                        Circle()
-                                            .trim(from: 0.0, to: hardProgressLength - (1.0 - 0.931))
-                                            .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                    }
-                                }
-                                .frame(width: 180, height: 180)
-                                .rotationEffect(.degrees(0))
-                                
-                                // Center Stats
-                                VStack(spacing: 2) {
-                                    HStack(alignment: .lastTextBaseline) {
-                                        Text("\(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.count ?? 0)")
-                                            .font(.system(size: 30, weight: .bold))
-                                            .foregroundColor(.fontColourWhite)
-                                        
-                                        Text("/3415")
-                                            .font(.system(size: 16, weight: .medium))
-                                            .foregroundColor(.fontColourWhite)
-                                    }
-                                    
-                                    HStack(spacing: 4) {
-                                        Image(systemName: "checkmark")
-                                            .font(.system(size: 14))
-                                            .foregroundColor(.leetcodeGreen)
-                                        
-                                        Text("Solved")
-                                            .font(.system(size: 16))
-                                            .foregroundColor(.fontColourWhite)
-                                    }
-                                    .padding(.top, 2)
-                                    
-                                    Text("1 Attempting")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(.fontColourGrey)
-                                        .padding(.top, 1)
-                                }
+
+                    
+
+                    
+                    HStack{
+                        // Acceptance Rate Circle
+                        // Acceptance Rate Circle
+                        VStack(alignment: .leading) {
+                            
+                            Text("\(leetCodeStats.data.matchedUser.username)")
+                                .font(.system(size: 16, weight: .heavy))
+                                .foregroundColor(.fontColourWhite)
+    
+                            Spacer()
+                            
+                            HStack{
+                                Text("Rank:")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.fontColourGrey)
+                                Text("\(leetCodeStats.data.matchedUser.profile.ranking)")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.fontColourWhite)
                             }
                             
-                            // Vertical centering container for difficulty stats
-                            VStack(alignment: .leading, spacing: 16) {
+                            HStack{
+                                Text("Reputation:")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.fontColourGrey)
+                                Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.fontColourWhite)
+                            }
+                        }
+                        .frame(width: 139, height: 139)
+                        .padding()
+                        .background(Color.backgroundColourTwoDark)
+                        .cornerRadius(4)
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack(alignment: .center, spacing: 24) {
+                                // Circular Progress with Stats
+                                ZStack {
+                                    // Background Circle (darker)
+                                    Circle()
+                                        .stroke(Color.backgroundColourTwoDark, lineWidth: 8)
+                                        .frame(width: 139, height: 139)
+                                    
+                                    // Easy background
+                                    Circle()
+                                        .trim(from: 0.264, to: 0.569)
+                                        .stroke(Color.easyBlueTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                        .frame(width: 139, height: 139)
+                                        .rotationEffect(.degrees(0))
+                                    
+                                    // Easy progress
+                                    Circle()
+                                        .trim(from: 0.264, to: 0.264 + (0.569 - 0.264) * (CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Easy" })?.count ?? 0) / 846.0))
+                                        .stroke(Color.easyBlue, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                        .frame(width: 139, height: 139)
+                                        .rotationEffect(.degrees(0))
+                                    
+                                    // Medium background
+                                    Circle()
+                                        .trim(from: 0.597, to: 0.903)
+                                        .stroke(Color.mediumYellowTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                        .frame(width: 139, height: 139)
+                                        .rotationEffect(.degrees(0))
+                                    
+                                    // Medium progress
+                                    Circle()
+                                        .trim(from: 0.597, to: 0.597 + (0.903 - 0.597) * (CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Medium" })?.count ?? 0) / 1775.0))
+                                        .stroke(Color.mediumYellow, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                        .frame(width: 139, height: 139)
+                                        .rotationEffect(.degrees(0))
+                                    
+                                    // Hard background (split into two parts)
+                                    Group {
+                                        Circle()
+                                            .trim(from: 0.931, to: 1.0)
+                                            .stroke(Color.hardRedTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                            .frame(width: 139, height: 139)
+                                            .rotationEffect(.degrees(0))
+                                        
+                                        Circle()
+                                            .trim(from: 0.0, to: 0.236)
+                                            .stroke(Color.hardRedTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                            .frame(width: 139, height: 139)
+                                            .rotationEffect(.degrees(0))
+                                    }
+                                    
+                                    // Hard progress
+                                    let hardSolved = CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Hard" })?.count ?? 0)
+                                    let hardTotal: CGFloat = 785.0
+                                    let hardProgress = hardSolved / hardTotal
+                                    let hardTotalLength = (1.0 - 0.931) + 0.236  // Total arc length
+                                    let hardProgressLength = hardTotalLength * hardProgress
+                                    
+                                    Group {
+                                        if hardProgressLength <= (1.0 - 0.931) {
+                                            // Progress fits before 1.0
+                                            Circle()
+                                                .trim(from: 0.931, to: 0.931 + hardProgressLength)
+                                                .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                        } else {
+                                            // Progress needs to wrap around
+                                            Circle()
+                                                .trim(from: 0.931, to: 1.0)
+                                                .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                            
+                                            Circle()
+                                                .trim(from: 0.0, to: hardProgressLength - (1.0 - 0.931))
+                                                .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                        }
+                                    }
+                                    .frame(width: 139, height: 139)
+                                    .rotationEffect(.degrees(0))
+                                    
+                                    // Center Stats
+                                    VStack(spacing: 2) {
+                                        HStack(alignment: .lastTextBaseline) {
+                                            Text("\(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.count ?? 0)")
+                                                .font(.system(size: 24, weight: .bold))
+                                                .foregroundColor(.fontColourWhite)
+                                            
+                                            Text("/3415")
+                                                .font(.system(size: 14, weight: .medium))
+                                                .foregroundColor(.fontColourWhite)
+                                        }
+                                        
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "checkmark")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(.leetcodeGreen)
+                                            
+                                            Text("Solved")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(.fontColourWhite)
+                                        }
+                                        .padding(.top, 2)
+                                        
+                                        Text("1 Attempting")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.fontColourGrey)
+                                            .padding(.top, 1)
+                                    }
+                                }
+                                
+
+                            }
+//                            .frame(maxWidth: .infinity, alignment: .center)
+//                            .padding(.vertical, 10)
+                        }
+                        .padding()
+                        .background(Color.backgroundColourTwoDark)
+                        .cornerRadius(4)
+                        
+                    }
+                    
+//                    ----------------------
+                    
+                    HStack{
+
+                        VStack {
+                            ZStack {
+                                Circle()
+                                    .stroke(Color.leetcodeGreenTwo, lineWidth: 8)
+                                    .frame(width: 139, height: 139)
+                                
+                                Circle()
+                                    .trim(from: 0, to: acceptanceRate / 100)
+                                    .stroke(Color.leetcodeGreen, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                                    .frame(width: 139, height: 139)
+                                    .rotationEffect(.degrees(-90))
+                                
+                                VStack(spacing: 4) {
+                                    Text(String(format: "%.2f%%", acceptanceRate))
+                                        .font(.system(size: 24, weight: .heavy))
+                                        .foregroundColor(.fontColourWhite)
+                                    
+                                    Text("Acceptance")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.fontColourWhite)
+                                }
+                            }
+                        }
+                        .padding()
+                        .background(Color.backgroundColourTwoDark)
+                        .cornerRadius(4)
+                        
+                        Spacer()
+                        
+                        ZStack() {
+                            
+                            VStack(alignment: .leading, spacing: 10) {
                                 Spacer()
                                 
                                 // Difficulty stats in vertical layout
@@ -164,62 +249,36 @@ struct HomeView: View {
                                         // Background rectangle with fixed size
                                         Rectangle()
                                             .fill(Color.backgroundColourThreeDark)
-                                            .frame(width: 100, height: 50)
-                                            .cornerRadius(4)
+                                            .frame(width: 148, height: 43)
+                                            .cornerRadius(3)
                                         
                                         // Content
                                         VStack(spacing: 2) {
-                                            Text(difficulty == "Medium" ? "Med." : difficulty)
-                                                .font(.system(size: 16, weight: .medium))
+                                            Text(difficulty == "Medium" ? "Medium" : difficulty)
+                                                .font(.system(size: 14, weight: .medium))
                                                 .foregroundColor(difficultyColor(difficulty))
                                             
                                             Text("\(solved)/\(total)")
-                                                .font(.system(size: 16, weight: .medium))
+                                                .font(.system(size: 14, weight: .medium))
                                                 .foregroundColor(.fontColourWhite)
                                         }
-                                        .padding(.horizontal, 8)
+//                                        .padding(.horizontal, 8)
                                     }
                                 }
                                 
                                 Spacer()
                             }
-                            .frame(height: 180)
+//                            .frame(height: 139)
+                            
                         }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.vertical, 10)
+                        .frame(width: 139, height: 139)
+                        .padding()
+                        .background(Color.backgroundColourTwoDark)
+                        .cornerRadius(4)
+                        
                     }
-                    .padding()
-                    .background(Color.backgroundColourTwoDark)
-                    .cornerRadius(5)
                     
-                    // Acceptance Rate Circle
-                    VStack {
-                        ZStack {
-                            Circle()
-                                .stroke(Color.backgroundColourTwoDark, lineWidth: 8)
-                                .frame(width: 150, height: 150)
-                            
-                            Circle()
-                                .trim(from: 0, to: acceptanceRate / 100)
-                                .stroke(Color.leetcodeGreen, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                .frame(width: 150, height: 150)
-                                .rotationEffect(.degrees(-90))
-                            
-                            VStack(spacing: 4) {
-                                Text(String(format: "%.2f%%", acceptanceRate))
-                                    .font(.system(size: 28, weight: .bold, design: .monospaced))
-                                    .foregroundColor(.fontColourWhite)
-                                
-                                Text("Acceptance")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.fontColourWhite)
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.backgroundColourTwoDark)
-                    .cornerRadius(5)
+//                    ---------------------
                     
                     // Recent Submissions
                     VStack(alignment: .leading, spacing: 12) {
