@@ -11,7 +11,7 @@ struct MockData {
     static let sampleResponse = LeetCodeResponse(
         data: DataClass(
             matchedUser: MatchedUser(
-                username: "chrischrischrischrischrischris",
+                username: "chriskersov",
                 profile: Profile(
                     ranking: 254789,
                     reputation: 850,

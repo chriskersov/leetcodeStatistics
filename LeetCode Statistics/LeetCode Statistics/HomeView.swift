@@ -9,6 +9,12 @@ import SwiftUI
 struct HomeView: View {
     let leetCodeStats: LeetCodeResponse
     
+    @State private var profileImage: UIImage?
+
+    private func loadProfileImage() async {
+        profileImage = try? await URLSession.shared.fetchProfileImage(username: leetCodeStats.data.matchedUser.username)
+    }
+    
     private var acceptanceRate: Double {
         let totalAccepted = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.submissions ?? 0
         let totalSubmissions = leetCodeStats.data.matchedUser.submitStats.totalSubmissionNum.first(where: { $0.difficulty == "All" })?.submissions ?? 0
@@ -50,6 +56,18 @@ struct HomeView: View {
                         // Acceptance Rate Circle
                         // Acceptance Rate Circle
                         VStack(alignment: .leading) {
+                            
+                            if let image = profileImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 40, height: 40)
+                                    .clipShape(Circle())
+                            } else {
+                                Circle()
+                                    .fill(Color.backgroundColourThreeDark)
+                                    .frame(width: 40, height: 40)
+                            }
                             
                             Text("\(leetCodeStats.data.matchedUser.username)")
                                 .font(.system(size: 16, weight: .heavy))
@@ -317,6 +335,11 @@ struct HomeView: View {
                 .padding()
             }
         }
+        .onAppear {
+            Task {
+                await loadProfileImage()
+            }
+        }
         
     }
     
@@ -332,6 +355,7 @@ struct HomeView: View {
             return .fontColourGrey
         }
     }
+
 }
 
 #Preview {

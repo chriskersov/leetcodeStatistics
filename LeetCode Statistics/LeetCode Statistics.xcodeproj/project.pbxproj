@@ -21,6 +21,7 @@
 		994C89D22D22175800EC3682 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C89D12D22175800EC3682 /* Colour.swift */; };
 		994C89D42D221AA600EC3682 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C89D32D221AA600EC3682 /* Font.swift */; };
 		994C89D52D2224CD00EC3682 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F4CEE2D208CD2004F5E86 /* WelcomeView.swift */; };
+		9993FE8C2D3041890086BF2B /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9993FE8B2D3041890086BF2B /* URLSession.swift */; };
 		99B664692D24B3BC00262197 /* LeetCodeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B664682D24B3BC00262197 /* LeetCodeUser.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		991F4D0E2D208CD4004F5E86 /* LeetCode_StatisticsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCode_StatisticsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		994C89D12D22175800EC3682 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
 		994C89D32D221AA600EC3682 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		9993FE8B2D3041890086BF2B /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		99B664682D24B3BC00262197 /* LeetCodeUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCodeUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +157,7 @@
 			children = (
 				994C89D12D22175800EC3682 /* Colour.swift */,
 				994C89D32D221AA600EC3682 /* Font.swift */,
+				9993FE8B2D3041890086BF2B /* URLSession.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				991BD18F2D28814B006AA4B0 /* LeetCodeService.swift in Sources */,
 				994C89D22D22175800EC3682 /* Colour.swift in Sources */,
+				9993FE8C2D3041890086BF2B /* URLSession.swift in Sources */,
 				99B664692D24B3BC00262197 /* LeetCodeUser.swift in Sources */,
 				991F4CF62D208CD4004F5E86 /* Persistence.swift in Sources */,
 				994C89D52D2224CD00EC3682 /* WelcomeView.swift in Sources */,
