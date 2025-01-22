@@ -43,24 +43,24 @@ struct MockData {
             recentAcSubmissionList: [
                 RecentSubmission(
                     id: "1",
-                    title: "Two Sum",
-                    titleSlug: "two-sum",
+                    title: "Flood Fill",
+                    titleSlug: "flood-fill",
                     timestamp: "1704321600",
-                    langName: "Swift"
+                    langName: "Python"
                 ),
                 RecentSubmission(
                     id: "2",
-                    title: "Add Two Numbers",
-                    titleSlug: "add-two-numbers",
+                    title: "Binary Search",
+                    titleSlug: "binary-search",
                     timestamp: "1704235200",
                     langName: "Python"
                 ),
                 RecentSubmission(
                     id: "3",
-                    title: "Longest Substring Without Repeating Characters",
-                    titleSlug: "longest-substring",
+                    title: "Valid Anagram",
+                    titleSlug: "valid-anagram",
                     timestamp: "1704148800",
-                    langName: "Swift"
+                    langName: "Python"
                 )
             ]
         )

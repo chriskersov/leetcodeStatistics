@@ -50,6 +50,17 @@ struct UserCalendar: Codable {
     let totalActiveDays: Int
     let dccBadges: [DccBadge]
     let submissionCalendar: String
+    
+    // Computed property to parse the submission calendar
+    var dailySubmissions: [String: Int] {
+        get {
+            guard let data = submissionCalendar.data(using: .utf8),
+                  let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Int] else {
+                return [:]
+            }
+            return jsonObject
+        }
+    }
 }
 
 struct DccBadge: Codable {

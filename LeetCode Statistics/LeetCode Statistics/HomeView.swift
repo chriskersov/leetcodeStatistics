@@ -57,18 +57,18 @@ struct HomeView: View {
                         // Acceptance Rate Circle
                         VStack(alignment: .leading) {
                             
-                            if let image = profileImage {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 40, height: 40)
-                                    .clipShape(Circle())
-                            } else {
-                                Circle()
-                                    .fill(Color.backgroundColourThreeDark)
-                                    .frame(width: 40, height: 40)
-                            }
-                            
+//                            if let image = profileImage {
+//                                Image(uiImage: image)
+//                                    .resizable()
+//                                    .scaledToFill()
+//                                    .frame(width: 40, height: 40)
+//                                    .clipShape(Circle())
+//                            } else {
+//                                Circle()
+//                                    .fill(Color.backgroundColourThreeDark)
+//                                    .frame(width: 40, height: 40)
+//                            }
+//                            
                             Text("\(leetCodeStats.data.matchedUser.username)")
                                 .font(.system(size: 16, weight: .heavy))
                                 .foregroundColor(.fontColourWhite)
@@ -298,36 +298,35 @@ struct HomeView: View {
                     
 //                    ---------------------
                     
-                    // Recent Submissions
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Recent Submissions")
-                            .font(.leetcodeFont)
-                            .foregroundColor(.leetcodeYellow)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Recent AC")
+                            .font(.system(size: 22, weight: .heavy))
+                            .padding(.bottom, 10)
+                            .foregroundColor(.fontColourWhite)
                         
-                        ForEach(leetCodeStats.data.recentAcSubmissionList, id: \.id) { submission in
+                        ForEach(Array(leetCodeStats.data.recentAcSubmissionList.enumerated()), id: \.element.id) { index, submission in
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(submission.title)
-                                    .font(.system(.headline))
+                                    .font(.system(size: 14, weight: .medium))
                                     .foregroundColor(.fontColourWhite)
+                                    .frame(maxWidth: .infinity, alignment: .leading) // Left alignment fix
+                                
                                 HStack {
-                                    Text(submission.langName)
-                                        .font(.system(.subheadline))
                                     if let timestamp = Int(submission.timestamp) {
-                                        Text("•")
                                         Text(Date(timeIntervalSince1970: TimeInterval(timestamp)), style: .date)
                                             .font(.system(.subheadline))
+                                            .frame(maxWidth: .infinity, alignment: .leading) // Left alignment fix
                                     }
                                 }
                                 .foregroundColor(.fontColourGrey)
                             }
-                            .padding(.vertical, 8)
-                            
-                            if submission.id != leetCodeStats.data.recentAcSubmissionList.last?.id {
-                                Divider()
-                                    .background(Color.fontColourGrey.opacity(0.3))
-                            }
+                            .frame(width: 322)
+                            .padding(8)
+                            .background(index % 2 == 0 ? Color.backgroundColourThreeDark : Color.backgroundColourTwoDark) // Alternating colors
+                            .cornerRadius(4)
                         }
                     }
+                    .frame(width: 330)
                     .padding()
                     .background(Color.backgroundColourTwoDark)
                     .cornerRadius(5)
