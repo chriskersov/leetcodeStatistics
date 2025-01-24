@@ -108,7 +108,7 @@ struct WelcomeView: View {
     
     var body: some View {
         if let stats = leetCodeStats {
-            HomeView(leetCodeStats: stats)
+            MainView(leetCodeStats: stats)
         } else {
             ZStack {
                 Color.backgroundColourDark

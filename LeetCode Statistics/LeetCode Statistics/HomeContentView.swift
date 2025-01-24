@@ -6,14 +6,8 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct HomeContentView: View {
     let leetCodeStats: LeetCodeResponse
-    
-    @State private var profileImage: UIImage?
-
-    private func loadProfileImage() async {
-        profileImage = try? await URLSession.shared.fetchProfileImage(username: leetCodeStats.data.matchedUser.username)
-    }
     
     private var acceptanceRate: Double {
         let totalAccepted = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.submissions ?? 0
@@ -29,47 +23,8 @@ struct HomeView: View {
             VStack(spacing: 0) {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-    //                    // Profile Card
-    //                    VStack(alignment: .leading, spacing: 8) {
-    //                        Text(leetCodeStats.data.matchedUser.username)
-    //                            .font(.leetcodeFont)
-    //                            .foregroundColor(.leetcodeYellow)
-    //                            .padding(.bottom, 4)
-    //
-    //                        Text("Rank: #\(leetCodeStats.data.matchedUser.profile.ranking)")
-    //                            .font(.system(.headline))
-    //                            .foregroundColor(.fontColourWhite)
-    //
-    //                        Text("\(leetCodeStats.data.matchedUser.profile.reputation) reputation")
-    //                            .font(.system(.subheadline))
-    //                            .foregroundColor(.fontColourGrey)
-    //                    }
-    //                    .frame(maxWidth: .infinity, alignment: .leading)
-    //                    .padding()
-    //                    .background(Color.backgroundColourTwoDark)
-    //                    .cornerRadius(5)
-                        
-
-                        
-
-                        
                         HStack{
-                            // Acceptance Rate Circle
-                            // Acceptance Rate Circle
                             VStack(alignment: .leading) {
-                                
-    //                            if let image = profileImage {
-    //                                Image(uiImage: image)
-    //                                    .resizable()
-    //                                    .scaledToFill()
-    //                                    .frame(width: 40, height: 40)
-    //                                    .clipShape(Circle())
-    //                            } else {
-    //                                Circle()
-    //                                    .fill(Color.backgroundColourThreeDark)
-    //                                    .frame(width: 40, height: 40)
-    //                            }
-    //
                                 Text("\(leetCodeStats.data.matchedUser.username)")
                                     .font(.system(size: 16, weight: .heavy))
                                     .foregroundColor(.fontColourWhite)
@@ -209,22 +164,16 @@ struct HomeView: View {
                                                 .padding(.top, 1)
                                         }
                                     }
-                                    
-
                                 }
-    //                            .frame(maxWidth: .infinity, alignment: .center)
-    //                            .padding(.vertical, 10)
                             }
                             .padding()
                             .background(Color.backgroundColourTwoDark)
                             .cornerRadius(4)
-                            
                         }
                         
     //                    ----------------------
                         
                         HStack{
-
                             VStack {
                                 ZStack {
                                     Circle()
@@ -258,7 +207,7 @@ struct HomeView: View {
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Spacer()
-                                    
+
                                     // Difficulty stats in vertical layout
                                     ForEach(["Easy", "Medium", "Hard"], id: \.self) { difficulty in
                                         let solved = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == difficulty })?.count ?? 0
@@ -281,20 +230,15 @@ struct HomeView: View {
                                                     .font(.system(size: 14, weight: .medium))
                                                     .foregroundColor(.fontColourWhite)
                                             }
-    //                                        .padding(.horizontal, 8)
                                         }
                                     }
-                                    
                                     Spacer()
                                 }
-    //                            .frame(height: 139)
-                                
                             }
                             .frame(width: 139, height: 139)
                             .padding()
                             .background(Color.backgroundColourTwoDark)
                             .cornerRadius(4)
-                            
                         }
                         
     //                    ---------------------
@@ -340,57 +284,54 @@ struct HomeView: View {
                     
                 }
                 
-                ZStack(alignment: .top) {
-                    // Gray top border for the entire bar
-                    Rectangle()
-                        .frame(height: 2)
-                        .foregroundColor(.backgroundColourThreeDark)
-                    
-                    HStack {
-                        Text("  ")
-                        Text("Home")
-                            .font(.system(size: 22, weight: .semibold))
-//                            .padding(.horizontal, 8)
-                            .foregroundColor(.fontColourWhite)
-                            .overlay(
-                                Rectangle()
-                                    .frame(height: 3)  // White indicator thickness
-                                    .foregroundColor(.white)
-                                    .offset(y: -14),  // Position above text
-                                alignment: .top
-                            )
-                        Text("  ")
-                        
-                        Spacer()
-                        
-                        Text("Settings")
-                            .font(.system(size: 22, weight: .semibold))
-                            .foregroundColor(.fontColourGrey)
-//                            .overlay(
-//                                Rectangle()
-//                                    .frame(height: 3)  // White indicator thickness
-//                                    .foregroundColor(.white)
-//                                    .offset(y: -14),  // Position above text
-//                                alignment: .top
-//                            )
-                    }
-                    .padding(.horizontal, 60)
-                    .padding(.top, 15)
-                    .frame(height: 40)
-                }
-                .background(Color.backgroundColourTwoDark)
-                .edgesIgnoringSafeArea(.bottom)
+//                ZStack(alignment: .top) {
+//                    // Gray top border for the entire bar
+//                    Rectangle()
+//                        .frame(height: 2)
+//                        .foregroundColor(.backgroundColourThreeDark)
+//                    
+//                    HStack {
+//                        // Home Button
+//                        Button(action: {
+//                            currentView = .home
+//                            // Navigate to HomeView
+////                            leetCodeStats = leetCodeStats // Refresh home view if needed
+//                        }) {
+//                            Text("Home")
+//                                .font(.system(size: 22, weight: .semibold))
+//                                .foregroundColor(.fontColourWhite)
+//                                .overlay(
+//                                    Rectangle()
+//                                        .frame(height: 3)
+//                                        .foregroundColor(.white)
+//                                        .offset(y: -14),
+//                                    alignment: .top
+//                                )
+//                        }
+//                        
+//                        Spacer()
+//                        
+//                        // Settings Button
+//                        Button(action: {
+//                            currentView = .settings
+//                            // Navigate to SettingsView
+//                            // You'll need to handle this navigation state
+//                        }) {
+//                            Text("Settings")
+//                                .font(.system(size: 22, weight: .semibold))
+//                                .foregroundColor(.fontColourGrey)
+//                        }
+//                    }
+//                    .padding(.horizontal, 60)
+//                    .padding(.top, 15)
+//                    .frame(height: 40)
+//                }
+//                .background(Color.backgroundColourTwoDark)
+//                .edgesIgnoringSafeArea(.bottom)
                 
             }
             .frame(maxHeight: .infinity)
-            
         }
-        .onAppear {
-            Task {
-                await loadProfileImage()
-            }
-        }
-        
     }
     
     private func difficultyColor(_ difficulty: String) -> Color {
@@ -405,7 +346,6 @@ struct HomeView: View {
             return .fontColourGrey
         }
     }
-
 }
 
 #Preview {
