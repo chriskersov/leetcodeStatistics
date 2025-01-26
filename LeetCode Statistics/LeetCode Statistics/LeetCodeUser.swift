@@ -48,17 +48,22 @@ struct UserCalendar: Codable {
     let activeYears: [Int]
     let streak: Int
     let totalActiveDays: Int
-    let dccBadges: [DccBadge]
+    let dccBadges: [DccBadge]  // Verify API uses "dccBadges" not "docBadges"
     let submissionCalendar: String
     
-    // Computed property to parse the submission calendar
+    // Improved parsing with error handling
     var dailySubmissions: [String: Int] {
-        get {
-            guard let data = submissionCalendar.data(using: .utf8),
-                  let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Int] else {
-                return [:]
-            }
-            return jsonObject
+        guard !submissionCalendar.isEmpty,
+              let data = submissionCalendar.data(using: .utf8) else {
+            print("Empty or invalid submissionCalendar string")
+            return [:]
+        }
+        
+        do {
+            return try JSONDecoder().decode([String: Int].self, from: data)
+        } catch {
+            print("Failed to parse submissionCalendar: \(error)")
+            return [:]
         }
     }
 }
