@@ -69,7 +69,7 @@ struct NavButton: View {
     let action: () -> Void
     
     var body: some View {
-        Button(action: action) {
+        ZStack {
             Text(title)
                 .font(.system(size: 22, weight: .semibold))
                 .foregroundColor(isSelected ? .fontColourWhite : .fontColourGrey)
@@ -82,6 +82,10 @@ struct NavButton: View {
                     ) : AnyView(EmptyView()),
                     alignment: .top
                 )
+                .contentShape(Rectangle()) // Ensure the entire area is tappable
+        }
+        .onTapGesture {
+            action() // Perform the action instantly
         }
     }
 }
