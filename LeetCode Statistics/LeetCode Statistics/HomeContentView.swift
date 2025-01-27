@@ -26,7 +26,7 @@ struct HomeContentView: View {
                         HStack{
                             VStack(alignment: .leading) {
                                 Text("\(leetCodeStats.data.matchedUser.username)")
-                                    .font(.system(size: 16, weight: .heavy))
+                                    .font(.system(size: 22, weight: .heavy))
                                     .foregroundColor(.fontColourWhite)
         
                                 Spacer()
@@ -243,9 +243,81 @@ struct HomeContentView: View {
                         
     //                    ---------------------
                         
+//                        gonna do the heat map here
+                        
+                        VStack(alignment: .leading, spacing: 5) {
+                            let userCalendar = leetCodeStats.data.matchedUser.userCalendar
+
+                            let formatter: DateFormatter = {
+                                let formatter = DateFormatter()
+                                formatter.dateFormat = "MMM d, yyyy"
+                                return formatter
+                            }()
+                            
+                            let totalSubmissions = userCalendar.dailySubmissions.values.reduce(0, +)
+                            
+                            HStack(alignment: .lastTextBaseline, spacing: 4) {
+                                Text("\(totalSubmissions)")
+                                    .font(.system(size: 24, weight: .heavy))
+                                    .foregroundColor(.fontColourWhite)
+                                
+                                Text("submissions in the past year")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.fontColourWhite)
+                            }
+                            .padding(.bottom, 10)
+                            
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack(alignment: .lastTextBaseline, spacing: 4) {
+                                    Text("Total Active Days: ")
+                                        .foregroundColor(.fontColourGrey)
+                                        .font(.system(size: 14, weight: .medium))
+                                    
+                                    Text("\(userCalendar.totalActiveDays)")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.fontColourWhite)
+                                }
+                                
+                                HStack(alignment: .lastTextBaseline, spacing: 4) {
+                                    Text("Streak: ")
+                                        .foregroundColor(.fontColourGrey)
+                                        .font(.system(size: 14, weight: .medium))
+                                    
+                                    Text("\(userCalendar.streak)")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.fontColourWhite)
+                                }
+                            }
+                            .padding(.bottom, 10)
+                            
+                            let calendar = Calendar.current
+                            let today = Date()
+                            
+                            let heatmapData = (0..<119).compactMap { dayOffset -> (date: Date, count: Int)? in
+                                guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) else { return nil }
+                                let timestamp = String(Int(floor(date.timeIntervalSince1970 / 86400) * 86400))
+                                let count = userCalendar.dailySubmissions[timestamp] ?? 0
+                                return (date: date, count: count)
+                            }.sorted { $0.date < $1.date }
+                            
+                            ForEach(heatmapData, id: \.date) { entry in
+                                Text("\(formatter.string(from: entry.date)): \(entry.count) submissions")
+                                    .foregroundColor(.fontColourWhite)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .frame(maxWidth: .infinity, alignment: .leading) // This will align text to the left
+                            }
+                            
+                        }
+                        .frame(width: 330)
+                        .padding()
+                        .background(Color.backgroundColourTwoDark)
+                        .cornerRadius(5)
+                        
+//                        --------------------------------
+                        
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Recent AC")
-                                .font(.system(size: 22, weight: .heavy))
+                                .font(.system(size: 24, weight: .heavy))
                                 .padding(.bottom, 10)
                                 .foregroundColor(.fontColourWhite)
                             
