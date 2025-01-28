@@ -247,7 +247,6 @@ struct HomeContentView: View {
                         
                         VStack(alignment: .leading, spacing: 5) {
                             let userCalendar = leetCodeStats.data.matchedUser.userCalendar
-
                             let formatter: DateFormatter = {
                                 let formatter = DateFormatter()
                                 formatter.dateFormat = "MMM d, yyyy"
@@ -256,6 +255,7 @@ struct HomeContentView: View {
                             
                             let totalSubmissions = userCalendar.dailySubmissions.values.reduce(0, +)
                             
+                            // Total submissions header
                             HStack(alignment: .lastTextBaseline, spacing: 4) {
                                 Text("\(totalSubmissions)")
                                     .font(.system(size: 24, weight: .heavy))
@@ -267,6 +267,7 @@ struct HomeContentView: View {
                             }
                             .padding(.bottom, 10)
                             
+                            // Stats section
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack(alignment: .lastTextBaseline, spacing: 4) {
                                     Text("Total Active Days: ")
@@ -289,24 +290,81 @@ struct HomeContentView: View {
                                 }
                             }
                             .padding(.bottom, 10)
-                            
+
+                            // Calculate days to look back based on current day of week
                             let calendar = Calendar.current
                             let today = Date()
-                            
-                            let heatmapData = (0..<119).compactMap { dayOffset -> (date: Date, count: Int)? in
+                            let weekday = calendar.component(.weekday, from: today) // 1 = Sunday, 2 = Monday, ..., 7 = Saturday
+                                                        
+                            let daysToLookBack: Int = {
+                                switch weekday {
+                                case 1: // Sunday
+                                    return 113
+                                case 2: // Monday
+                                    return 114
+                                case 3: // Tuesday
+                                    return 115
+                                case 4: // Wednesday
+                                    return 116
+                                case 5: // Thursday
+                                    return 117
+                                case 6: // Friday
+                                    return 118
+                                case 7: // Saturday
+                                    return 119
+                                default:
+                                    return 119
+                                }
+                            }()
+
+//                            let totalColumns = 17
+//                            let totalRows = 7
+//                            let totalGridSize = totalColumns * totalRows
+//                            let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: totalColumns)
+
+                            // Get our submission data first
+                            let heatmapData = (0..<daysToLookBack).compactMap { dayOffset -> (date: Date, count: Int)? in
                                 guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) else { return nil }
                                 let timestamp = String(Int(floor(date.timeIntervalSince1970 / 86400) * 86400))
                                 let count = userCalendar.dailySubmissions[timestamp] ?? 0
                                 return (date: date, count: count)
                             }.sorted { $0.date < $1.date }
+
+                            let totalColumns = 17
+                            let totalRows = 7
+                            let totalGridSize = totalColumns * totalRows
+                            let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: totalColumns)
+
+                            LazyVGrid(columns: columns, spacing: 4) {
+                                ForEach(0..<totalGridSize, id: \.self) { index in
+                                    let column = index % totalColumns
+                                    let row = index / totalColumns
+                                    let absoluteIndex = row + (column * totalRows) // Convert to vertical filling order
+                                    
+                                    // If it's the last column, we need to check if we have enough days to fill it
+                                    if column == totalColumns - 1 {
+                                        let shouldFill = absoluteIndex < daysToLookBack
+                                        Rectangle()
+                                            .foregroundColor(shouldFill ? .blue : Color.backgroundColourThreeDark)
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .cornerRadius(3)
+                                    } else {
+                                        // For all other columns, fill if we have data for this index
+                                        Rectangle()
+                                            .foregroundColor(absoluteIndex < daysToLookBack ? .blue : .blue)
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .cornerRadius(3)
+                                    }
+                                }
+                            }
+                            .padding(.bottom, 10)
                             
                             ForEach(heatmapData, id: \.date) { entry in
                                 Text("\(formatter.string(from: entry.date)): \(entry.count) submissions")
                                     .foregroundColor(.fontColourWhite)
                                     .font(.system(size: 14, weight: .medium))
-                                    .frame(maxWidth: .infinity, alignment: .leading) // This will align text to the left
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            
                         }
                         .frame(width: 330)
                         .padding()
