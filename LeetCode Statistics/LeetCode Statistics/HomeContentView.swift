@@ -339,32 +339,74 @@ struct HomeContentView: View {
                                 ForEach(0..<totalGridSize, id: \.self) { index in
                                     let column = index % totalColumns
                                     let row = index / totalColumns
-                                    let absoluteIndex = row + (column * totalRows) // Convert to vertical filling order
+                                    let absoluteIndex = row + (column * totalRows)
                                     
-                                    // If it's the last column, we need to check if we have enough days to fill it
-                                    if column == totalColumns - 1 {
-                                        let shouldFill = absoluteIndex < daysToLookBack
-                                        Rectangle()
-                                            .foregroundColor(shouldFill ? .blue : Color.backgroundColourThreeDark)
-                                            .aspectRatio(1, contentMode: .fit)
-                                            .cornerRadius(3)
+                                    // Determine corner positions
+                                    let isTopLeft = index == 0
+                                    let isTopRight = column == totalColumns - 1 && row == 0
+                                    let isBottomLeft = column == 0 && row == totalRows - 1
+                                    let isBottomRight = index == totalGridSize - 1
+                                    
+                                    // Determine which corner to round
+                                    let corners: UIRectCorner = {
+                                        if isTopLeft {
+                                            return .topLeft
+                                        } else if isTopRight {
+                                            return .topRight
+                                        } else if isBottomLeft {
+                                            return .bottomLeft
+                                        } else if isBottomRight {
+                                            return .bottomRight
+                                        }
+                                        return []
+                                    }()
+                                    
+                                    if absoluteIndex < daysToLookBack {
+                                        let submissionData = heatmapData[absoluteIndex]
+                                        
+                                        if submissionData.count == 0 {
+                                            Rectangle()
+                                                .foregroundColor(Color.backgroundColourThreeDark)
+                                                .aspectRatio(1, contentMode: .fit)
+                                                .cornerRadius(3)
+                                                .cornerRadius(6, corners: corners)
+                                        } else {
+                                            let nonZeroSubmissions = heatmapData.map { $0.count }.filter { $0 > 0 }
+                                            let maxSubmissions = nonZeroSubmissions.max() ?? 1
+                                            let minSubmissions = nonZeroSubmissions.min() ?? 1
+                                            
+                                            let opacity: Double = {
+                                                if maxSubmissions == minSubmissions {
+                                                    return 1.0
+                                                }
+                                                let range = maxSubmissions - minSubmissions
+                                                let position = submissionData.count - minSubmissions
+                                                return 0.3 + (0.7 * (Double(position) / Double(range)))
+                                            }()
+                                            
+                                            Rectangle()
+                                                .foregroundColor(.leetcodeYellow.opacity(opacity))
+                                                .aspectRatio(1, contentMode: .fit)
+                                                .cornerRadius(3)
+                                                .cornerRadius(6, corners: corners)
+                                        }
                                     } else {
-                                        // For all other columns, fill if we have data for this index
                                         Rectangle()
-                                            .foregroundColor(absoluteIndex < daysToLookBack ? .blue : .blue)
+                                            .foregroundColor(Color.backgroundColourTwoDark)
                                             .aspectRatio(1, contentMode: .fit)
                                             .cornerRadius(3)
+                                            .cornerRadius(6, corners: corners)
                                     }
                                 }
                             }
                             .padding(.bottom, 10)
                             
-                            ForEach(heatmapData, id: \.date) { entry in
-                                Text("\(formatter.string(from: entry.date)): \(entry.count) submissions")
-                                    .foregroundColor(.fontColourWhite)
-                                    .font(.system(size: 14, weight: .medium))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
+//                            ForEach(heatmapData, id: \.date) { entry in
+//                                Text("\(formatter.string(from: entry.date)): \(entry.count) submissions")
+//                                    .foregroundColor(.fontColourWhite)
+//                                    .font(.system(size: 14, weight: .medium))
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                            }
                         }
                         .frame(width: 330)
                         .padding()
