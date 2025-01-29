@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @StateObject private var userManager = UserManager.shared
+    
     var body: some View {
         ZStack {
             Color.backgroundColourDark
                 .edgesIgnoringSafeArea(.all)
             
-            Text("Settings")
-                .font(.system(size: 22, weight: .heavy))
-                .foregroundColor(.fontColourWhite)
+            VStack {
+                // ... other settings ...
+                
+                Button(action: {
+                    userManager.clearAllData()
+                }) {
+                    Text("Sign Out")
+                        .foregroundColor(.red)
+                        .padding()
+                }
+            }
         }
     }
 }

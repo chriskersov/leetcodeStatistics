@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @StateObject private var userManager = UserManager.shared
     @State private var username = ""
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var showError = false
-    @State private var leetCodeStats: LeetCodeResponse?
     
     var body: some View {
-        if let stats = leetCodeStats {
+        if let stats = userManager.currentStats {
             MainView(leetCodeStats: stats)
         } else {
             ZStack {
@@ -50,38 +50,20 @@ struct WelcomeView: View {
                                 .stroke(Color.fontColourGrey, lineWidth: 1.5)
                         )
                         .padding(.bottom, 15)
+                        .onChange(of: userManager.currentUsername) { oldValue, newValue in
+                            if newValue == nil {
+                                username = "" // Clear the text field when user signs out
+                            }
+                        }
                     
                     Button(action: {
                         if !username.isEmpty {
                             isLoading = true
                             Task {
                                 do {
-                                    leetCodeStats = try await LeetCodeService.fetchStats(username: username)
-                                    
-//                                    // ADD THESE PRINTS
-//                                    if let userCalendar = leetCodeStats?.data.matchedUser.userCalendar {
-////                                        print("Raw Submission Calendar String:")
-////                                        print(userCalendar.submissionCalendar)
-////                                        
-////                                        print("\nParsed Daily Submissions:")
-////                                        print(userCalendar.dailySubmissions)
-//                                        
-//                                        let sortedSubmissions = userCalendar.dailySubmissions.sorted {
-//                                            Double($0.key)! < Double($1.key)!
-//                                        }
-//                                        
-//                                        for (timestamp, count) in sortedSubmissions {
-//                                            let date = Date(timeIntervalSince1970: Double(timestamp)!)
-//                                            let dateFormatter = DateFormatter()
-//                                            dateFormatter.dateFormat = "MMM d, yyyy"
-//                                            print("\(dateFormatter.string(from: date)): \(count) submissions")
-//                                        }
-//                                        
-//                                        print("\nFull UserCalendar:")
-//                                        print("Active Years: \(userCalendar.activeYears)")
-//                                        print("Streak: \(userCalendar.streak)")
-//                                        print("Total Active Days: \(userCalendar.totalActiveDays)")
-//                                    }
+                                    let stats = try await LeetCodeService.fetchStats(username: username)
+                                    userManager.saveUsername(username)
+                                    userManager.saveStats(stats)
                                 } catch {
                                     errorMessage = error.localizedDescription
                                     showError = true
