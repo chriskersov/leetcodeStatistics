@@ -12,9 +12,12 @@ class UserManager: ObservableObject {
     static let shared = UserManager()
     @Published var currentUsername: String?
     @Published var currentStats: LeetCodeResponse?
+    @Published var shouldClearTextField = false
     
     private let userDefaults = UserDefaults.standard
     private let usernameKey = "leetcode_username"
+    private let lastUpdateKey = "last_update_timestamp"
+    private let updateInterval: TimeInterval = 3600 // 1 hour in seconds
     
     private var statsFileURL: URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -22,10 +25,35 @@ class UserManager: ObservableObject {
     }
     
     init() {
-        // Load saved username
         currentUsername = userDefaults.string(forKey: usernameKey)
-        // Try to load saved stats
         loadSavedStats()
+        checkForUpdate()
+    }
+    
+    private func checkForUpdate() {
+        guard let username = currentUsername else { return }
+        
+        let lastUpdate = userDefaults.double(forKey: lastUpdateKey)
+        let currentTime = Date().timeIntervalSince1970
+        
+        if currentTime - lastUpdate >= updateInterval {
+            Task {
+                await refreshStats(for: username)
+            }
+        }
+    }
+    
+    func refreshStats(for username: String) async {
+        do {
+            let stats = try await LeetCodeService.fetchStats(username: username)
+            await MainActor.run {
+                self.currentStats = stats
+                self.saveStats(stats)
+                self.userDefaults.set(Date().timeIntervalSince1970, forKey: lastUpdateKey)
+            }
+        } catch {
+            print("Error refreshing stats: \(error)")
+        }
     }
     
     func saveUsername(_ username: String) {

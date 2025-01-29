@@ -10,12 +10,15 @@ import SwiftUI
 struct MainView: View {
     let leetCodeStats: LeetCodeResponse
     @State private var selectedTab: Tab = .home
+    @StateObject private var userManager = UserManager.shared
+    
+    // Timer for periodic updates
+    let timer = Timer.publish(every: 3600, on: .main, in: .common).autoconnect()
     
     enum Tab { case home, settings }
     
     var body: some View {
         VStack(spacing: 0) {
-            // Content Area
             Group {
                 switch selectedTab {
                 case .home:
@@ -25,8 +28,24 @@ struct MainView: View {
                 }
             }
             
-            // Navigation Bar
             CustomNavBar(selectedTab: $selectedTab)
+        }
+        .onReceive(timer) { _ in
+            // Refresh stats every hour while the app is open - might not need this icl
+//            could be done via background refresh when we do widget
+            if let username = userManager.currentUsername {
+                Task {
+                    await userManager.refreshStats(for: username)
+                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            // Refresh stats whenever app comes to foreground
+            if let username = userManager.currentUsername {
+                Task {
+                    await userManager.refreshStats(for: username)
+                }
+            }
         }
     }
 }

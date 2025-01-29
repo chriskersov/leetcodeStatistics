@@ -17,6 +17,14 @@ struct WelcomeView: View {
     var body: some View {
         if let stats = userManager.currentStats {
             MainView(leetCodeStats: stats)
+                .onAppear {
+                    // Check for updates when view appears
+                    if let username = userManager.currentUsername {
+                        Task {
+                            await userManager.refreshStats(for: username)
+                        }
+                    }
+                }
         } else {
             ZStack {
                 Color.backgroundColourDark
