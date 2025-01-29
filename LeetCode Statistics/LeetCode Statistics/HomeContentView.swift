@@ -267,29 +267,29 @@ struct HomeContentView: View {
                             }
                             .padding(.bottom, 10)
                             
-                            // Stats section
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack(alignment: .lastTextBaseline, spacing: 4) {
-                                    Text("Total Active Days: ")
-                                        .foregroundColor(.fontColourGrey)
-                                        .font(.system(size: 14, weight: .medium))
-                                    
-                                    Text("\(userCalendar.totalActiveDays)")
-                                        .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.fontColourWhite)
-                                }
-                                
-                                HStack(alignment: .lastTextBaseline, spacing: 4) {
-                                    Text("Streak: ")
-                                        .foregroundColor(.fontColourGrey)
-                                        .font(.system(size: 14, weight: .medium))
-                                    
-                                    Text("\(userCalendar.streak)")
-                                        .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.fontColourWhite)
-                                }
-                            }
-                            .padding(.bottom, 10)
+//                            // Stats section
+//                            VStack(alignment: .leading, spacing: 8) {
+//                                HStack(alignment: .lastTextBaseline, spacing: 4) {
+//                                    Text("Total Active Days: ")
+//                                        .foregroundColor(.fontColourGrey)
+//                                        .font(.system(size: 14, weight: .medium))
+//                                    
+//                                    Text("\(userCalendar.totalActiveDays)")
+//                                        .font(.system(size: 14, weight: .medium))
+//                                        .foregroundColor(.fontColourWhite)
+//                                }
+//                                
+//                                HStack(alignment: .lastTextBaseline, spacing: 4) {
+//                                    Text("Streak: ")
+//                                        .foregroundColor(.fontColourGrey)
+//                                        .font(.system(size: 14, weight: .medium))
+//                                    
+//                                    Text("\(userCalendar.streak)")
+//                                        .font(.system(size: 14, weight: .medium))
+//                                        .foregroundColor(.fontColourWhite)
+//                                }
+//                            }
+//                            .padding(.bottom, 10)
 
                             // Calculate days to look back based on current day of week
                             let calendar = Calendar.current
@@ -399,7 +399,7 @@ struct HomeContentView: View {
                                     }
                                 }
                             }
-                            .padding(.bottom, 10)
+                            .padding(.bottom, 7)
                             
 //                            ForEach(heatmapData, id: \.date) { entry in
 //                                Text("\(formatter.string(from: entry.date)): \(entry.count) submissions")
@@ -419,6 +419,7 @@ struct HomeContentView: View {
                             Text("Recent AC")
                                 .font(.system(size: 24, weight: .heavy))
                                 .padding(.bottom, 10)
+//                                .padding(.top, 3)
                                 .foregroundColor(.fontColourWhite)
                             
                             ForEach(Array(leetCodeStats.data.recentAcSubmissionList.enumerated()), id: \.element.id) { index, submission in
