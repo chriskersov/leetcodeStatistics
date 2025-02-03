@@ -24,31 +24,57 @@ struct HomeContentView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         HStack{
-                            VStack(alignment: .leading) {
-                                Text("\(leetCodeStats.data.matchedUser.username)")
-                                    .font(.system(size: 22, weight: .heavy))
-                                    .foregroundColor(.fontColourWhite)
-        
-                                Spacer()
+                            
+                            VStack(alignment: .leading, spacing: 6) {
+//                               Text(leetCodeStats.data.matchedUser.profile.realName ?? "")
+//                                   .font(.system(size: 22, weight: .heavy))
+//                                   .foregroundColor(.fontColourWhite)
+//                                   
+//                               Text("@\(leetCodeStats.data.matchedUser.username)")
+//                                   .font(.system(size: 16))
+//                                   .foregroundColor(.fontColourGrey)
                                 
-                                HStack{
-                                    Text("Rank:")
-                                        .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.fontColourGrey)
-                                    Text("\(leetCodeStats.data.matchedUser.profile.ranking)")
-                                        .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.fontColourWhite)
-                                }
+                               Text(leetCodeStats.data.matchedUser.username)
+                                   .font(.system(size: 22, weight: .heavy))
+                                   .foregroundColor(.fontColourWhite)
                                 
-                                HStack{
-                                    Text("Reputation:")
-                                        .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.fontColourGrey)
-                                    Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
-                                        .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.fontColourWhite)
-                                }
+                               Spacer()
+                                   
+//                               if let bio = leetCodeStats.data.matchedUser.profile.aboutMe, !bio.isEmpty {
+//                                   Text(bio)
+//                                       .font(.system(size: 14))
+//                                       .foregroundColor(.fontColourWhite)
+//                                       .lineLimit(2)
+//                               }
+                               
+                               HStack{
+                                   Text("Rank:")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourGrey)
+                                   Text("\(leetCodeStats.data.matchedUser.profile.ranking)")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourWhite)
+                               }
+                               
+                               HStack{
+                                   Text("Reputation:")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourGrey)
+                                   Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourWhite)
+                               }
+                               
+                               HStack{
+                                   Text("Views:")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourGrey)
+                                   Text("\(leetCodeStats.data.matchedUser.profile.postViewCount)")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourWhite)
+                               }
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)  // Add this
                             .frame(width: 139, height: 139)
                             .padding()
                             .background(Color.backgroundColourTwoDark)
