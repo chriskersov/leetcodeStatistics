@@ -27,6 +27,8 @@ struct MatchedUser: Codable {
 }
 
 struct Profile: Codable {
+    let realName: String?
+    let userAvatar: String?
     let ranking: Int
     let reputation: Int
     let starRating: Double

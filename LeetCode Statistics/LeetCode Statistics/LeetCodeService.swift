@@ -16,6 +16,8 @@ class LeetCodeService {
           matchedUser(username: "\(username)") {
             username
             profile {
+              realName
+              userAvatar
               ranking
               reputation
               starRating

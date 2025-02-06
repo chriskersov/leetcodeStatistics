@@ -26,17 +26,40 @@ struct HomeContentView: View {
                         HStack{
                             
                             VStack(alignment: .leading, spacing: 6) {
-//                               Text(leetCodeStats.data.matchedUser.profile.realName ?? "")
-//                                   .font(.system(size: 22, weight: .heavy))
-//                                   .foregroundColor(.fontColourWhite)
+                                
+                                AsyncImage(url: URL(string: leetCodeStats.data.matchedUser.profile.userAvatar ?? "")) { phase in
+                                    switch phase {
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 50, height: 50)
+                                            .cornerRadius(3)
+                                    case .failure(_):
+                                        Image(systemName: "person.circle.fill")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                            .foregroundColor(.gray)
+                                            .padding(.leading)
+                                    case .empty:
+                                        ProgressView()
+                                            .padding(.leading)
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                                
+                               Text(leetCodeStats.data.matchedUser.profile.realName ?? "")
+                                   .font(.system(size: 22, weight: .heavy))
+                                   .foregroundColor(.fontColourWhite)
 //                                   
 //                               Text("@\(leetCodeStats.data.matchedUser.username)")
 //                                   .font(.system(size: 16))
 //                                   .foregroundColor(.fontColourGrey)
                                 
                                Text(leetCodeStats.data.matchedUser.username)
-                                   .font(.system(size: 22, weight: .heavy))
-                                   .foregroundColor(.fontColourWhite)
+                                   .font(.system(size: 14, weight: .medium))
+                                   .foregroundColor(.fontColourGrey)
                                 
                                Spacer()
                                    
@@ -56,23 +79,23 @@ struct HomeContentView: View {
                                        .foregroundColor(.fontColourWhite)
                                }
                                
-                               HStack{
-                                   Text("Reputation:")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourGrey)
-                                   Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourWhite)
-                               }
-                               
-                               HStack{
-                                   Text("Views:")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourGrey)
-                                   Text("\(leetCodeStats.data.matchedUser.profile.postViewCount)")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourWhite)
-                               }
+//                               HStack{
+//                                   Text("Reputation:")
+//                                       .font(.system(size: 14, weight: .medium))
+//                                       .foregroundColor(.fontColourGrey)
+//                                   Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
+//                                       .font(.system(size: 14, weight: .medium))
+//                                       .foregroundColor(.fontColourWhite)
+//                               }
+//                               
+//                               HStack{
+//                                   Text("Views:")
+//                                       .font(.system(size: 14, weight: .medium))
+//                                       .foregroundColor(.fontColourGrey)
+//                                   Text("\(leetCodeStats.data.matchedUser.profile.postViewCount)")
+//                                       .font(.system(size: 14, weight: .medium))
+//                                       .foregroundColor(.fontColourWhite)
+//                               }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)  // Add this
                             .frame(width: 139, height: 139)

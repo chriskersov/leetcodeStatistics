@@ -13,6 +13,8 @@ struct MockData {
             matchedUser: MatchedUser(
                 username: "chriskersov",
                 profile: Profile(
+                    realName: "chris kersov",
+                    userAvatar: "fakelinklol",
                     ranking: 254789,
                     reputation: 850,
                     starRating: 4.5,
