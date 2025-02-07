@@ -25,34 +25,36 @@ struct HomeContentView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         HStack{
                             
-                            VStack(alignment: .leading, spacing: 6) {
+                            VStack(alignment: .leading, spacing: 2) {
                                 
-                                AsyncImage(url: URL(string: leetCodeStats.data.matchedUser.profile.userAvatar ?? "")) { phase in
-                                    switch phase {
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 50, height: 50)
-                                            .cornerRadius(3)
-                                    case .failure(_):
-                                        Image(systemName: "person.circle.fill")
-                                            .resizable()
-                                            .frame(width: 50, height: 50)
-                                            .foregroundColor(.gray)
-                                            .padding(.leading)
-                                    case .empty:
-                                        ProgressView()
-                                            .padding(.leading)
-                                    @unknown default:
-                                        EmptyView()
-                                    }
-                                }
+//                                AsyncImage(url: URL(string: leetCodeStats.data.matchedUser.profile.userAvatar ?? "")) { phase in
+//                                    switch phase {
+//                                    case .success(let image):
+//                                        image
+//                                            .resizable()
+//                                            .aspectRatio(contentMode: .fill)
+//                                            .frame(width: 50, height: 50)
+//                                            .cornerRadius(3)
+//                                    case .failure(_):
+//                                        Image(systemName: "person.fill")
+//                                            .resizable()
+//                                            .frame(width: 50, height: 50)
+//                                            .foregroundColor(.gray)
+//                                            .padding(.leading)
+//                                    case .empty:
+//                                        ProgressView()
+//                                            .padding(.leading)
+//                                    @unknown default:
+//                                        EmptyView()
+//                                    }
+//                                }
                                 
                                Text(leetCodeStats.data.matchedUser.profile.realName ?? "")
-                                   .font(.system(size: 22, weight: .heavy))
+                                   .font(.system(size: 20, weight: .heavy))
                                    .foregroundColor(.fontColourWhite)
-//                                   
+                                   .lineLimit(nil)
+                                   .fixedSize(horizontal: false, vertical: true)
+//
 //                               Text("@\(leetCodeStats.data.matchedUser.username)")
 //                                   .font(.system(size: 16))
 //                                   .foregroundColor(.fontColourGrey)
@@ -60,6 +62,8 @@ struct HomeContentView: View {
                                Text(leetCodeStats.data.matchedUser.username)
                                    .font(.system(size: 14, weight: .medium))
                                    .foregroundColor(.fontColourGrey)
+                                   .lineLimit(nil)
+                                   .fixedSize(horizontal: false, vertical: true)
                                 
                                Spacer()
                                    
@@ -79,23 +83,23 @@ struct HomeContentView: View {
                                        .foregroundColor(.fontColourWhite)
                                }
                                
-//                               HStack{
-//                                   Text("Reputation:")
-//                                       .font(.system(size: 14, weight: .medium))
-//                                       .foregroundColor(.fontColourGrey)
-//                                   Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
-//                                       .font(.system(size: 14, weight: .medium))
-//                                       .foregroundColor(.fontColourWhite)
-//                               }
-//                               
-//                               HStack{
-//                                   Text("Views:")
-//                                       .font(.system(size: 14, weight: .medium))
-//                                       .foregroundColor(.fontColourGrey)
-//                                   Text("\(leetCodeStats.data.matchedUser.profile.postViewCount)")
-//                                       .font(.system(size: 14, weight: .medium))
-//                                       .foregroundColor(.fontColourWhite)
-//                               }
+                               HStack{
+                                   Text("Reputation:")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourGrey)
+                                   Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourWhite)
+                               }
+                               
+                               HStack{
+                                   Text("Views:")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourGrey)
+                                   Text("\(leetCodeStats.data.matchedUser.profile.postViewCount)")
+                                       .font(.system(size: 14, weight: .medium))
+                                       .foregroundColor(.fontColourWhite)
+                               }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)  // Add this
                             .frame(width: 139, height: 139)
@@ -296,18 +300,18 @@ struct HomeContentView: View {
                         
                         VStack(alignment: .leading, spacing: 5) {
                             let userCalendar = leetCodeStats.data.matchedUser.userCalendar
-                            let formatter: DateFormatter = {
-                                let formatter = DateFormatter()
-                                formatter.dateFormat = "MMM d, yyyy"
-                                return formatter
-                            }()
+//                            let formatter: DateFormatter = {
+//                                let formatter = DateFormatter()
+//                                formatter.dateFormat = "MMM d, yyyy"
+//                                return formatter
+//                            }()
                             
                             let totalSubmissions = userCalendar.dailySubmissions.values.reduce(0, +)
                             
                             // Total submissions header
                             HStack(alignment: .lastTextBaseline, spacing: 4) {
                                 Text("\(totalSubmissions)")
-                                    .font(.system(size: 24, weight: .heavy))
+                                    .font(.system(size: 20, weight: .heavy))
                                     .foregroundColor(.fontColourWhite)
                                 
                                 Text("submissions in the past year")
@@ -466,7 +470,7 @@ struct HomeContentView: View {
                         
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Recent AC")
-                                .font(.system(size: 24, weight: .heavy))
+                                .font(.system(size: 20, weight: .heavy))
                                 .padding(.bottom, 10)
 //                                .padding(.top, 3)
                                 .foregroundColor(.fontColourWhite)
