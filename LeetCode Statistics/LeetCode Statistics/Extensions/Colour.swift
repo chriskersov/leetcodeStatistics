@@ -23,4 +23,11 @@ extension Color {
     static let hardRedTwo: Color = Color(red: 85/255, green: 46/255, blue: 44/255)
     static let mediumYellowTwo: Color = Color(red: 88/255, green: 73/255, blue: 38/255)
     static let easyBlueTwo: Color = Color(red: 38/255, green: 73/255, blue: 73/255)
+    
+    static let backgroundColourLight: Color = Color(red: 246/255, green: 248/255, blue: 250/255)
+    static let backgroundColourTwoLight: Color = Color(red: 255/255, green: 255/255, blue: 255/255)
+    static let backgroundColourThreeLight: Color = Color(red: 250/255, green: 250/250, blue: 250/250)
+    static let fontColourBlack: Color = Color(red: 0/255, green: 0/255, blue: 0/255)
+    static let fontColourGregLight: Color = Color(red: 135/255, green: 134/255, blue: 139/255)
+
 }

@@ -15,18 +15,77 @@ struct SettingsView: View {
             Color.backgroundColourDark
                 .edgesIgnoringSafeArea(.all)
             
-            VStack {
-                // ... other settings ...
+            VStack(alignment: .leading, spacing: 20) {
+                // Light Mode Button
+                settingsButton(title: "Light Mode",
+                             textColor: .fontColourBlack,
+                             backgroundColor: .backgroundColourTwoLight)
                 
+                // How to Add Widgets Button
+                settingsButton(title: "How to Add Widgets",
+                             textColor: .fontColourWhite,
+                             backgroundColor: .backgroundColourTwoDark)
+                
+                settingsButton(title: "Feature Request",
+                             textColor: .fontColourWhite,
+                             backgroundColor: .backgroundColourTwoDark)
+                
+                // Rate App Button
+                settingsButton(title: "Rate App",
+                             textColor: .fontColourWhite,
+                             backgroundColor: .backgroundColourTwoDark)
+                
+                settingsButton(title: "Share",
+                             textColor: .fontColourWhite,
+                             backgroundColor: .backgroundColourTwoDark)
+                
+                Spacer()
+                
+                settingsButton(title: "Support Me",
+                             textColor: .fontColourWhite,
+                             backgroundColor: .backgroundColourTwoDark)
+                
+                Spacer()
+                
+                // Sign Out Button
                 Button(action: {
                     userManager.clearAllData()
                 }) {
-                    Text("Sign Out")
-                        .foregroundColor(.red)
-                        .padding()
+                    settingsButton(title: "Sign Out",
+                                  textColor: .hardRed,
+                                  backgroundColor: .backgroundColourTwoDark,
+                                  alignment: .center)
+                }
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal)
+            .padding(.vertical)
+        }
+    }
+    
+    // Helper function to create consistent buttons
+    private func settingsButton(title: String, textColor: Color, backgroundColor: Color, alignment: HorizontalAlignment = .leading) -> some View {
+        VStack(alignment: alignment) {
+            HStack {
+                if alignment == .center {
+                    Spacer()
+                }
+                Text(title)
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(textColor)
+                if alignment == .center {
+                    Spacer()
+                }
+                if alignment == .leading {
+                    Spacer()
                 }
             }
         }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(backgroundColor)
+        .cornerRadius(5)
     }
 }
 
