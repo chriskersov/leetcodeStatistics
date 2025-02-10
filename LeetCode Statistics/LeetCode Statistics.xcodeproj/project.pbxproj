@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9919466C2D5A648600C31F85 /* AddWidgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919466B2D5A648600C31F85 /* AddWidgetsView.swift */; };
 		991BD18D2D287D94006AA4B0 /* HomeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991BD18C2D287D94006AA4B0 /* HomeContentView.swift */; };
 		991BD18F2D28814B006AA4B0 /* LeetCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991BD18E2D28814B006AA4B0 /* LeetCodeService.swift */; };
 		991BD1912D29F496006AA4B0 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991BD1902D29F496006AA4B0 /* MockData.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9919466B2D5A648600C31F85 /* AddWidgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWidgetsView.swift; sourceTree = "<group>"; };
 		991BD18C2D287D94006AA4B0 /* HomeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentView.swift; sourceTree = "<group>"; };
 		991BD18E2D28814B006AA4B0 /* LeetCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCodeService.swift; sourceTree = "<group>"; };
 		991BD1902D29F496006AA4B0 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				9993FE8F2D44218A0086BF2B /* SettingsView.swift */,
 				99A29F2D2D4994A400E130DD /* RoundedCorner.swift */,
 				99A29F2F2D4A6EEC00E130DD /* UserManager.swift */,
+				9919466B2D5A648600C31F85 /* AddWidgetsView.swift */,
 			);
 			path = "LeetCode Statistics";
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				99A29F2E2D4994A500E130DD /* RoundedCorner.swift in Sources */,
 				994C89D52D2224CD00EC3682 /* WelcomeView.swift in Sources */,
 				991BD1912D29F496006AA4B0 /* MockData.swift in Sources */,
+				9919466C2D5A648600C31F85 /* AddWidgetsView.swift in Sources */,
 				994C89D42D221AA600EC3682 /* Font.swift in Sources */,
 				991BD18D2D287D94006AA4B0 /* HomeContentView.swift in Sources */,
 				991F4CF92D208CD4004F5E86 /* LeetCode_Statistics.xcdatamodeld in Sources */,

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var userManager = UserManager.shared
+    @State private var showingWidgetInstructions = false
     
     var body: some View {
         ZStack {
@@ -21,10 +22,16 @@ struct SettingsView: View {
                              textColor: .fontColourBlack,
                              backgroundColor: .backgroundColourTwoLight)
                 
-                // How to Add Widgets Button
-                settingsButton(title: "How to Add Widgets",
-                             textColor: .fontColourWhite,
-                             backgroundColor: .backgroundColourTwoDark)
+                Button(action: {
+                    showingWidgetInstructions = true
+                }) {
+                    settingsButton(title: "How to Add Widgets",
+                                 textColor: .fontColourWhite,
+                                 backgroundColor: .backgroundColourTwoDark)
+                }
+                .fullScreenCover(isPresented: $showingWidgetInstructions) {
+                    AddWidgetsView()
+                }
                 
                 settingsButton(title: "Feature Request",
                              textColor: .fontColourWhite,
