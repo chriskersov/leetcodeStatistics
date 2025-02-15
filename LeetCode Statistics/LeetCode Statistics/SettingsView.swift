@@ -13,8 +13,12 @@ import StoreKit
 struct SettingsView: View {
     @StateObject private var userManager = UserManager.shared
     @State private var showingWidgetInstructions = false
-    @State private var showingFeatureRequest = false  // Keep this
-    @State private var showingMailError = false      // Add this
+    @State private var showingFeatureRequest = false
+    @State private var showingMailError = false
+    @State private var showingShareSheet = false
+    
+    private let appURL = URL(string: "https://apps.apple.com/your-app-id")!
+    private let shareMessage = "Check out LeetCode Statistics!"
     
     var body: some View {
         ZStack {
@@ -34,7 +38,7 @@ struct SettingsView: View {
                                  textColor: .fontColourWhite,
                                  backgroundColor: .backgroundColourTwoDark)
                 }
-                .fullScreenCover(isPresented: $showingWidgetInstructions) {
+                .sheet(isPresented: $showingWidgetInstructions) {
                     AddWidgetsView()
                 }
                 
@@ -70,9 +74,16 @@ struct SettingsView: View {
                                   backgroundColor: .backgroundColourTwoDark)
                 }
                 
-                settingsButton(title: "Share",
-                             textColor: .fontColourWhite,
-                             backgroundColor: .backgroundColourTwoDark)
+                Button(action: {
+                     showingShareSheet = true
+                 }) {
+                     settingsButton(title: "Share",
+                                  textColor: .fontColourWhite,
+                                  backgroundColor: .backgroundColourTwoDark)
+                 }
+                 .sheet(isPresented: $showingShareSheet) {
+                     ShareSheet(activityItems: [shareMessage, appURL])
+                 }
                 
                 Spacer()
                 
@@ -121,6 +132,21 @@ struct SettingsView: View {
         .padding()
         .background(backgroundColor)
         .cornerRadius(5)
+    }
+    
+    struct ShareSheet: UIViewControllerRepresentable {
+        let activityItems: [Any]
+        let applicationActivities: [UIActivity]? = nil
+        
+        func makeUIViewController(context: Context) -> UIActivityViewController {
+            let controller = UIActivityViewController(
+                activityItems: activityItems,
+                applicationActivities: applicationActivities
+            )
+            return controller
+        }
+        
+        func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
     }
 }
 

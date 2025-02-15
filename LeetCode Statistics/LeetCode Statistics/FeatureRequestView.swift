@@ -8,7 +8,7 @@ struct FeatureRequestView: UIViewControllerRepresentable {
         let vc = MFMailComposeViewController()
         vc.mailComposeDelegate = context.coordinator
         vc.setToRecipients(["chriskersov@gmail.com"]) // Replace with your email
-        vc.setSubject("LeetCode Stats Feature Request")
+        vc.setSubject("LeetCode Statistics Feature Request")
         vc.setMessageBody("I would like to request the following feature:\n\n", isHTML: false)
         return vc
     }
