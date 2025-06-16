@@ -106,19 +106,17 @@ struct SettingsView: View {
                     VStack(spacing: 12) {
                         HStack {
                             Text("Support")
-                                .font(.title2)
-                                .fontWeight(.medium)
+                                .font(.system(size: 20, weight: .medium))
                                 .foregroundColor(.fontColour)
                             Text("Chris")
-                                .font(.title2)
-                                .fontWeight(.medium)
+                                .font(.system(size: 20, weight: .medium))
                                 .foregroundColor(.leetcodeYellow)
                             Spacer()
                         }
                         
                         HStack {
-                            Text("If you would like to support development with a small donation, that would be very much appreciated!")
-                                .font(.body)
+                            Text("If you would like to support me with a small donation, that would be greatly appreciated!")
+                                .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.fontColour)
                             Spacer()
                         }
@@ -175,10 +173,10 @@ struct SettingsView: View {
             }
         }
         .environment(\.themeManager, themeManager)
-        .alert("Thank You! ❤️", isPresented: $showingThankYou) {
-            Button("You're Welcome!") { }
+        .alert("Thank You!", isPresented: $showingThankYou) {
+            Button("No Problem") { }
         } message: {
-            Text("Your support helps keep this app free and updated!")
+            Text("Your support is greatly appreciated!")
         }
     }
     
