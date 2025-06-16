@@ -11,7 +11,7 @@ struct AddWidgetsView: View {
     
     var body: some View {
         ZStack {
-            Color.backgroundColourDark
+            Color.backgroundColour
                 .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 20) {
                 HStack{
@@ -19,13 +19,13 @@ struct AddWidgetsView: View {
                         HStack {
                             Text("How to Add Widgets")
                                 .font(.system(size: 24, weight: .heavy))
-                                .foregroundColor(.fontColourWhite)
+                                .foregroundColor(.fontColour)
                             
                             Spacer()
                             
                             Button(action: { dismiss() }) {
                                 Image(systemName: "xmark")
-                                    .foregroundColor(.fontColourWhite)
+                                    .foregroundColor(Color.fontColour)
                                     .font(.system(size: 24, weight: .medium))
                             }
                         }
@@ -33,10 +33,10 @@ struct AddWidgetsView: View {
                         
                         Text("gonna be a video here demonstrating how to add widgets")
                             .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(.fontColourWhite)
+                            .foregroundColor(Color.fontColour)
                         Text("i guess just screen record me doing it on my iphone")
                             .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(.fontColourWhite)
+                            .foregroundColor(Color.fontColour)
                         
                         Spacer()
                     }
@@ -44,7 +44,7 @@ struct AddWidgetsView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.backgroundColourTwoDark)
+                .background(Color.backgroundColourTwo)
                 .cornerRadius(5)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

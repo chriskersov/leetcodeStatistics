@@ -29,6 +29,8 @@
 		99A29F2E2D4994A500E130DD /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A29F2D2D4994A400E130DD /* RoundedCorner.swift */; };
 		99A29F302D4A6EEC00E130DD /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A29F2F2D4A6EEC00E130DD /* UserManager.swift */; };
 		99B664692D24B3BC00262197 /* LeetCodeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B664682D24B3BC00262197 /* LeetCodeUser.swift */; };
+		99E67AAA2DA839FE0095E1DE /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E67AA92DA839FD0095E1DE /* ThemeManager.swift */; };
+		99E67AAC2DA83A1F0095E1DE /* ColourExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E67AAB2DA83A1F0095E1DE /* ColourExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		99A29F2D2D4994A400E130DD /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		99A29F2F2D4A6EEC00E130DD /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		99B664682D24B3BC00262197 /* LeetCodeUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCodeUser.swift; sourceTree = "<group>"; };
+		99E67AA92DA839FD0095E1DE /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		99E67AAB2DA83A1F0095E1DE /* ColourExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 				99A29F2F2D4A6EEC00E130DD /* UserManager.swift */,
 				9919466B2D5A648600C31F85 /* AddWidgetsView.swift */,
 				9919466D2D5CD6CD00C31F85 /* FeatureRequestView.swift */,
+				99E67AA92DA839FD0095E1DE /* ThemeManager.swift */,
 			);
 			path = "LeetCode Statistics";
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 				994C89D12D22175800EC3682 /* Colour.swift */,
 				994C89D32D221AA600EC3682 /* Font.swift */,
 				9993FE8B2D3041890086BF2B /* URLSession.swift */,
+				99E67AAB2DA83A1F0095E1DE /* ColourExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 				994C89D22D22175800EC3682 /* Colour.swift in Sources */,
 				9919466E2D5CD6CD00C31F85 /* FeatureRequestView.swift in Sources */,
 				99A29F302D4A6EEC00E130DD /* UserManager.swift in Sources */,
+				99E67AAA2DA839FE0095E1DE /* ThemeManager.swift in Sources */,
 				9993FE8C2D3041890086BF2B /* URLSession.swift in Sources */,
 				99B664692D24B3BC00262197 /* LeetCodeUser.swift in Sources */,
 				991F4CF62D208CD4004F5E86 /* Persistence.swift in Sources */,
@@ -322,6 +329,7 @@
 				994C89D52D2224CD00EC3682 /* WelcomeView.swift in Sources */,
 				991BD1912D29F496006AA4B0 /* MockData.swift in Sources */,
 				9919466C2D5A648600C31F85 /* AddWidgetsView.swift in Sources */,
+				99E67AAC2DA83A1F0095E1DE /* ColourExtensions.swift in Sources */,
 				994C89D42D221AA600EC3682 /* Font.swift in Sources */,
 				991BD18D2D287D94006AA4B0 /* HomeContentView.swift in Sources */,
 				991F4CF92D208CD4004F5E86 /* LeetCode_Statistics.xcdatamodeld in Sources */,

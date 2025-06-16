@@ -63,6 +63,7 @@ struct WelcomeView: View {
                                 username = "" // Clear the text field when user signs out
                             }
                         }
+                        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
                     
                     Button(action: {
                         if !username.isEmpty {
@@ -94,7 +95,7 @@ struct WelcomeView: View {
                     .foregroundColor(.leetcodeYellow)
                     .cornerRadius(5)
                     .disabled(username.isEmpty || isLoading)
-                }
+                    .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)                }
                 .padding()
             }
             .alert("Error", isPresented: $showError, presenting: errorMessage) { _ in

@@ -11,6 +11,7 @@ struct MainView: View {
     let leetCodeStats: LeetCodeResponse
     @State private var selectedTab: Tab = .home
     @StateObject private var userManager = UserManager.shared
+    @StateObject private var themeManager = ThemeManager.shared
     
     // Timer for periodic updates
     let timer = Timer.publish(every: 3600, on: .main, in: .common).autoconnect()
@@ -23,12 +24,15 @@ struct MainView: View {
                 switch selectedTab {
                 case .home:
                     HomeContentView(leetCodeStats: leetCodeStats)
+                        .environmentObject(themeManager)
                 case .settings:
                     SettingsView()
+                        .environmentObject(themeManager)
                 }
             }
             
             CustomNavBar(selectedTab: $selectedTab)
+                .environmentObject(themeManager)
         }
         .onReceive(timer) { _ in
             // Refresh stats every hour while the app is open - might not need this icl
@@ -52,12 +56,13 @@ struct MainView: View {
 
 struct CustomNavBar: View {
     @Binding var selectedTab: MainView.Tab
+    @EnvironmentObject private var themeManager: ThemeManager  // Add this line
     
     var body: some View {
         ZStack(alignment: .top) {
             Rectangle()
                 .frame(height: 2)
-                .foregroundColor(.backgroundColourThreeDark)
+                .foregroundColor(Color.backgroundColourThree)
             
             HStack {
                 NavButton(
@@ -78,7 +83,7 @@ struct CustomNavBar: View {
             .padding(.top, 15)
             .frame(height: 40)
         }
-        .background(Color.backgroundColourTwoDark)
+        .background(Color.backgroundColourTwo)
     }
 }
 
@@ -86,17 +91,18 @@ struct NavButton: View {
     let title: String
     let isSelected: Bool
     let action: () -> Void
+    @EnvironmentObject private var themeManager: ThemeManager  // Add this line
     
     var body: some View {
         ZStack {
             Text(title)
                 .font(.system(size: 22, weight: .semibold))
-                .foregroundColor(isSelected ? .fontColourWhite : .fontColourGrey)
+                .foregroundColor(isSelected ? Color.fontColour : Color.secondaryFontColour)
                 .overlay(
                     isSelected ? AnyView(
                         Rectangle()
                             .frame(height: 3)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color.fontColour)
                             .offset(y: -14)
                     ) : AnyView(EmptyView()),
                     alignment: .top

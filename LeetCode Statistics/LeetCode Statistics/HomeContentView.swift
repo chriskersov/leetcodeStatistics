@@ -8,6 +8,7 @@ import SwiftUI
 
 struct HomeContentView: View {
     let leetCodeStats: LeetCodeResponse
+    @EnvironmentObject private var themeManager: ThemeManager
     
     private var acceptanceRate: Double {
         let totalAccepted = leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.submissions ?? 0
@@ -17,7 +18,7 @@ struct HomeContentView: View {
     
     var body: some View {
         ZStack {
-            Color.backgroundColourDark
+            Color.backgroundColour
                 .edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 0) {
@@ -25,87 +26,52 @@ struct HomeContentView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         HStack{
                             
-                            VStack(alignment: .leading, spacing: 2) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(leetCodeStats.data.matchedUser.profile.realName ?? "")
+                                    .font(.system(size: 20, weight: .heavy))
+                                    .foregroundColor(Color.fontColour)
                                 
-//                                AsyncImage(url: URL(string: leetCodeStats.data.matchedUser.profile.userAvatar ?? "")) { phase in
-//                                    switch phase {
-//                                    case .success(let image):
-//                                        image
-//                                            .resizable()
-//                                            .aspectRatio(contentMode: .fill)
-//                                            .frame(width: 50, height: 50)
-//                                            .cornerRadius(3)
-//                                    case .failure(_):
-//                                        Image(systemName: "person.fill")
-//                                            .resizable()
-//                                            .frame(width: 50, height: 50)
-//                                            .foregroundColor(.gray)
-//                                            .padding(.leading)
-//                                    case .empty:
-//                                        ProgressView()
-//                                            .padding(.leading)
-//                                    @unknown default:
-//                                        EmptyView()
-//                                    }
-//                                }
+                                Text(leetCodeStats.data.matchedUser.username)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(Color.secondaryFontColour)
                                 
-                               Text(leetCodeStats.data.matchedUser.profile.realName ?? "")
-                                   .font(.system(size: 20, weight: .heavy))
-                                   .foregroundColor(.fontColourWhite)
-                                   .lineLimit(nil)
-                                   .fixedSize(horizontal: false, vertical: true)
-//
-//                               Text("@\(leetCodeStats.data.matchedUser.username)")
-//                                   .font(.system(size: 16))
-//                                   .foregroundColor(.fontColourGrey)
+                                Spacer()
                                 
-                               Text(leetCodeStats.data.matchedUser.username)
-                                   .font(.system(size: 14, weight: .medium))
-                                   .foregroundColor(.fontColourGrey)
-                                   .lineLimit(nil)
-                                   .fixedSize(horizontal: false, vertical: true)
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack{
+                                        Text("Rank:")
+                                            .font(.system(size: 14, weight: .medium))
+                                            .foregroundColor(Color.secondaryFontColour)
+                                        Text("\(leetCodeStats.data.matchedUser.profile.ranking)")
+                                            .font(.system(size: 14, weight: .medium))
+                                            .foregroundColor(Color.fontColour)
+                                    }
+                                    
+                                    HStack{
+                                        Text("Reputation:")
+                                            .font(.system(size: 14, weight: .medium))
+                                            .foregroundColor(Color.secondaryFontColour)
+                                        Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
+                                            .font(.system(size: 14, weight: .medium))
+                                            .foregroundColor(Color.fontColour)
+                                    }
+                                    
+                                    HStack{
+                                        Text("Views:")
+                                            .font(.system(size: 14, weight: .medium))
+                                            .foregroundColor(Color.secondaryFontColour)
+                                        Text("\(leetCodeStats.data.matchedUser.profile.postViewCount)")
+                                            .font(.system(size: 14, weight: .medium))
+                                            .foregroundColor(Color.fontColour)
+                                    }
+                                }
                                 
-                               Spacer()
-                                   
-//                               if let bio = leetCodeStats.data.matchedUser.profile.aboutMe, !bio.isEmpty {
-//                                   Text(bio)
-//                                       .font(.system(size: 14))
-//                                       .foregroundColor(.fontColourWhite)
-//                                       .lineLimit(2)
-//                               }
-                               
-                               HStack{
-                                   Text("Rank:")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourGrey)
-                                   Text("\(leetCodeStats.data.matchedUser.profile.ranking)")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourWhite)
-                               }
-                               
-                               HStack{
-                                   Text("Reputation:")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourGrey)
-                                   Text("\(leetCodeStats.data.matchedUser.profile.reputation)")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourWhite)
-                               }
-                               
-                               HStack{
-                                   Text("Views:")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourGrey)
-                                   Text("\(leetCodeStats.data.matchedUser.profile.postViewCount)")
-                                       .font(.system(size: 14, weight: .medium))
-                                       .foregroundColor(.fontColourWhite)
-                               }
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)  // Add this
-                            .frame(width: 139, height: 139)
+                            .frame(width: 143, height: 143, alignment: .topLeading)
                             .padding()
-                            .background(Color.backgroundColourTwoDark)
+                            .background(Color.backgroundColourTwo)
                             .cornerRadius(4)
+                            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
                             
                             Spacer()
                             
@@ -115,35 +81,35 @@ struct HomeContentView: View {
                                     ZStack {
                                         // Background Circle (darker)
                                         Circle()
-                                            .stroke(Color.backgroundColourTwoDark, lineWidth: 8)
-                                            .frame(width: 139, height: 139)
+                                            .stroke(Color.backgroundColourTwo, lineWidth: 8)
+                                            .frame(width: 143, height: 143)
                                         
                                         // Easy background
                                         Circle()
                                             .trim(from: 0.264, to: 0.569)
                                             .stroke(Color.easyBlueTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                            .frame(width: 139, height: 139)
+                                            .frame(width: 143, height: 143)
                                             .rotationEffect(.degrees(0))
                                         
                                         // Easy progress
                                         Circle()
                                             .trim(from: 0.264, to: 0.264 + (0.569 - 0.264) * (CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Easy" })?.count ?? 0) / 846.0))
                                             .stroke(Color.easyBlue, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                            .frame(width: 139, height: 139)
+                                            .frame(width: 143, height: 143)
                                             .rotationEffect(.degrees(0))
                                         
                                         // Medium background
                                         Circle()
                                             .trim(from: 0.597, to: 0.903)
                                             .stroke(Color.mediumYellowTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                            .frame(width: 139, height: 139)
+                                            .frame(width: 143, height: 143)
                                             .rotationEffect(.degrees(0))
                                         
                                         // Medium progress
                                         Circle()
                                             .trim(from: 0.597, to: 0.597 + (0.903 - 0.597) * (CGFloat(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "Medium" })?.count ?? 0) / 1775.0))
                                             .stroke(Color.mediumYellow, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                            .frame(width: 139, height: 139)
+                                            .frame(width: 143, height: 143)
                                             .rotationEffect(.degrees(0))
                                         
                                         // Hard background (split into two parts)
@@ -151,13 +117,13 @@ struct HomeContentView: View {
                                             Circle()
                                                 .trim(from: 0.931, to: 1.0)
                                                 .stroke(Color.hardRedTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                                .frame(width: 139, height: 139)
+                                                .frame(width: 143, height: 143)
                                                 .rotationEffect(.degrees(0))
                                             
                                             Circle()
                                                 .trim(from: 0.0, to: 0.236)
                                                 .stroke(Color.hardRedTwo, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                                .frame(width: 139, height: 139)
+                                                .frame(width: 143, height: 143)
                                                 .rotationEffect(.degrees(0))
                                         }
                                         
@@ -185,7 +151,7 @@ struct HomeContentView: View {
                                                     .stroke(Color.hardRed, style: StrokeStyle(lineWidth: 8, lineCap: .round))
                                             }
                                         }
-                                        .frame(width: 139, height: 139)
+                                        .frame(width: 143, height: 143)
                                         .rotationEffect(.degrees(0))
                                         
                                         // Center Stats
@@ -193,11 +159,11 @@ struct HomeContentView: View {
                                             HStack(alignment: .lastTextBaseline) {
                                                 Text("\(leetCodeStats.data.matchedUser.submitStats.acSubmissionNum.first(where: { $0.difficulty == "All" })?.count ?? 0)")
                                                     .font(.system(size: 24, weight: .bold))
-                                                    .foregroundColor(.fontColourWhite)
+                                                    .foregroundColor(Color.fontColour)
                                                 
                                                 Text("/3415")
                                                     .font(.system(size: 14, weight: .medium))
-                                                    .foregroundColor(.fontColourWhite)
+                                                    .foregroundColor(Color.fontColour)
                                             }
                                             
                                             HStack(spacing: 4) {
@@ -207,52 +173,52 @@ struct HomeContentView: View {
                                                 
                                                 Text("Solved")
                                                     .font(.system(size: 14))
-                                                    .foregroundColor(.fontColourWhite)
+                                                    .foregroundColor(Color.fontColour)
                                             }
                                             .padding(.top, 2)
                                             
-                                            Text("1 Attempting")
-                                                .font(.system(size: 14))
-                                                .foregroundColor(.fontColourGrey)
-                                                .padding(.top, 1)
+//                                            Text("\(leetCodeStats.data.matchedUser.profile.attempting) Attempting")
+//                                                .font(.system(size: 14))
+//                                                .foregroundColor(Color.secondaryFontColour)
+//                                                .padding(.top, 1)
                                         }
                                     }
                                 }
                             }
                             .padding()
-                            .background(Color.backgroundColourTwoDark)
+                            .background(Color.backgroundColourTwo)
                             .cornerRadius(4)
+                            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
                         }
-                        
-    //                    ----------------------
                         
                         HStack{
                             VStack {
                                 ZStack {
                                     Circle()
                                         .stroke(Color.leetcodeGreenTwo, lineWidth: 8)
-                                        .frame(width: 139, height: 139)
+                                        .frame(width: 143, height: 143)
                                     
                                     Circle()
                                         .trim(from: 0, to: acceptanceRate / 100)
                                         .stroke(Color.leetcodeGreen, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                                        .frame(width: 139, height: 139)
+                                        .frame(width: 143, height: 143)
                                         .rotationEffect(.degrees(-90))
                                     
                                     VStack(spacing: 4) {
                                         Text(String(format: "%.2f%%", acceptanceRate))
                                             .font(.system(size: 24, weight: .heavy))
-                                            .foregroundColor(.fontColourWhite)
+                                            .foregroundColor(Color.fontColour)
                                         
                                         Text("Acceptance")
                                             .font(.system(size: 14, weight: .medium))
-                                            .foregroundColor(.fontColourWhite)
+                                            .foregroundColor(Color.fontColour)
                                     }
                                 }
                             }
                             .padding()
-                            .background(Color.backgroundColourTwoDark)
+                            .background(Color.backgroundColourTwo)
                             .cornerRadius(4)
+                            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
                             
                             Spacer()
                             
@@ -269,7 +235,7 @@ struct HomeContentView: View {
                                         ZStack {
                                             // Background rectangle with fixed size
                                             Rectangle()
-                                                .fill(Color.backgroundColourThreeDark)
+                                                .fill(Color.backgroundColourThree)
                                                 .frame(width: 148, height: 43)
                                                 .cornerRadius(3)
                                             
@@ -281,30 +247,23 @@ struct HomeContentView: View {
                                                 
                                                 Text("\(solved)/\(total)")
                                                     .font(.system(size: 14, weight: .medium))
-                                                    .foregroundColor(.fontColourWhite)
+                                                    .foregroundColor(Color.fontColour)
                                             }
+                                            
                                         }
                                     }
                                     Spacer()
                                 }
                             }
-                            .frame(width: 139, height: 139)
+                            .frame(width: 143, height: 143)
                             .padding()
-                            .background(Color.backgroundColourTwoDark)
+                            .background(Color.backgroundColourTwo)
                             .cornerRadius(4)
+                            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
                         }
-                        
-    //                    ---------------------
-                        
-//                        gonna do the heat map here
                         
                         VStack(alignment: .leading, spacing: 5) {
                             let userCalendar = leetCodeStats.data.matchedUser.userCalendar
-//                            let formatter: DateFormatter = {
-//                                let formatter = DateFormatter()
-//                                formatter.dateFormat = "MMM d, yyyy"
-//                                return formatter
-//                            }()
                             
                             let totalSubmissions = userCalendar.dailySubmissions.values.reduce(0, +)
                             
@@ -312,37 +271,13 @@ struct HomeContentView: View {
                             HStack(alignment: .lastTextBaseline, spacing: 4) {
                                 Text("\(totalSubmissions)")
                                     .font(.system(size: 20, weight: .heavy))
-                                    .foregroundColor(.fontColourWhite)
+                                    .foregroundColor(Color.fontColour)
                                 
                                 Text("submissions in the past year")
                                     .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.fontColourWhite)
+                                    .foregroundColor(Color.fontColour)
                             }
                             .padding(.bottom, 10)
-                            
-//                            // Stats section
-//                            VStack(alignment: .leading, spacing: 8) {
-//                                HStack(alignment: .lastTextBaseline, spacing: 4) {
-//                                    Text("Total Active Days: ")
-//                                        .foregroundColor(.fontColourGrey)
-//                                        .font(.system(size: 14, weight: .medium))
-//                                    
-//                                    Text("\(userCalendar.totalActiveDays)")
-//                                        .font(.system(size: 14, weight: .medium))
-//                                        .foregroundColor(.fontColourWhite)
-//                                }
-//                                
-//                                HStack(alignment: .lastTextBaseline, spacing: 4) {
-//                                    Text("Streak: ")
-//                                        .foregroundColor(.fontColourGrey)
-//                                        .font(.system(size: 14, weight: .medium))
-//                                    
-//                                    Text("\(userCalendar.streak)")
-//                                        .font(.system(size: 14, weight: .medium))
-//                                        .foregroundColor(.fontColourWhite)
-//                                }
-//                            }
-//                            .padding(.bottom, 10)
 
                             // Calculate days to look back based on current day of week
                             let calendar = Calendar.current
@@ -369,11 +304,6 @@ struct HomeContentView: View {
                                     return 119
                                 }
                             }()
-
-//                            let totalColumns = 17
-//                            let totalRows = 7
-//                            let totalGridSize = totalColumns * totalRows
-//                            let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: totalColumns)
 
                             // Get our submission data first
                             let heatmapData = (0..<daysToLookBack).compactMap { dayOffset -> (date: Date, count: Int)? in
@@ -419,7 +349,7 @@ struct HomeContentView: View {
                                         
                                         if submissionData.count == 0 {
                                             Rectangle()
-                                                .foregroundColor(Color.backgroundColourThreeDark)
+                                                .foregroundColor(Color.backgroundColourThree)
                                                 .aspectRatio(1, contentMode: .fit)
                                                 .cornerRadius(3)
                                                 .cornerRadius(6, corners: corners)
@@ -445,7 +375,7 @@ struct HomeContentView: View {
                                         }
                                     } else {
                                         Rectangle()
-                                            .foregroundColor(Color.backgroundColourTwoDark)
+                                            .foregroundColor(Color.backgroundColourTwo)
                                             .aspectRatio(1, contentMode: .fit)
                                             .cornerRadius(3)
                                             .cornerRadius(6, corners: corners)
@@ -453,33 +383,24 @@ struct HomeContentView: View {
                                 }
                             }
                             .padding(.bottom, 7)
-                            
-//                            ForEach(heatmapData, id: \.date) { entry in
-//                                Text("\(formatter.string(from: entry.date)): \(entry.count) submissions")
-//                                    .foregroundColor(.fontColourWhite)
-//                                    .font(.system(size: 14, weight: .medium))
-//                                    .frame(maxWidth: .infinity, alignment: .leading)
-//                            }
                         }
-                        .frame(width: 330)
+                        .frame(width: 337)
                         .padding()
-                        .background(Color.backgroundColourTwoDark)
+                        .background(Color.backgroundColourTwo)
                         .cornerRadius(5)
-                        
-//                        --------------------------------
+                        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
                         
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Recent AC")
                                 .font(.system(size: 20, weight: .heavy))
                                 .padding(.bottom, 10)
-//                                .padding(.top, 3)
-                                .foregroundColor(.fontColourWhite)
+                                .foregroundColor(Color.fontColour)
                             
                             ForEach(Array(leetCodeStats.data.recentAcSubmissionList.enumerated()), id: \.element.id) { index, submission in
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(submission.title)
                                         .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.fontColourWhite)
+                                        .foregroundColor(Color.fontColour)
                                         .frame(maxWidth: .infinity, alignment: .leading) // Left alignment fix
                                     
                                     HStack {
@@ -489,72 +410,22 @@ struct HomeContentView: View {
                                                 .frame(maxWidth: .infinity, alignment: .leading) // Left alignment fix
                                         }
                                     }
-                                    .foregroundColor(.fontColourGrey)
+                                    .foregroundColor(Color.secondaryFontColour)
                                 }
                                 .frame(width: 322)
                                 .padding(8)
-                                .background(index % 2 == 0 ? Color.backgroundColourThreeDark : Color.backgroundColourTwoDark) // Alternating colors
+                                .background(index % 2 == 0 ? Color.backgroundColourThree : Color.backgroundColourTwo) // Alternating colors
                                 .cornerRadius(4)
                             }
                         }
-                        .frame(width: 330)
+                        .frame(width: 337)
                         .padding()
-                        .background(Color.backgroundColourTwoDark)
+                        .background(Color.backgroundColourTwo)
                         .cornerRadius(5)
-                        
-    //                    ---------------------------
-                       
-                        
+                        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2)
                     }
                     .padding()
-                    
                 }
-                
-//                ZStack(alignment: .top) {
-//                    // Gray top border for the entire bar
-//                    Rectangle()
-//                        .frame(height: 2)
-//                        .foregroundColor(.backgroundColourThreeDark)
-//                    
-//                    HStack {
-//                        // Home Button
-//                        Button(action: {
-//                            currentView = .home
-//                            // Navigate to HomeView
-////                            leetCodeStats = leetCodeStats // Refresh home view if needed
-//                        }) {
-//                            Text("Home")
-//                                .font(.system(size: 22, weight: .semibold))
-//                                .foregroundColor(.fontColourWhite)
-//                                .overlay(
-//                                    Rectangle()
-//                                        .frame(height: 3)
-//                                        .foregroundColor(.white)
-//                                        .offset(y: -14),
-//                                    alignment: .top
-//                                )
-//                        }
-//                        
-//                        Spacer()
-//                        
-//                        // Settings Button
-//                        Button(action: {
-//                            currentView = .settings
-//                            // Navigate to SettingsView
-//                            // You'll need to handle this navigation state
-//                        }) {
-//                            Text("Settings")
-//                                .font(.system(size: 22, weight: .semibold))
-//                                .foregroundColor(.fontColourGrey)
-//                        }
-//                    }
-//                    .padding(.horizontal, 60)
-//                    .padding(.top, 15)
-//                    .frame(height: 40)
-//                }
-//                .background(Color.backgroundColourTwoDark)
-//                .edgesIgnoringSafeArea(.bottom)
-                
             }
             .frame(maxHeight: .infinity)
         }
@@ -573,6 +444,25 @@ struct HomeContentView: View {
         }
     }
 }
+
+
+
+//// This extension is needed for rounded corners
+//extension View {
+//    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+//        clipShape(RoundedCorner(radius: radius, corners: corners))
+//    }
+//}
+//
+//struct RoundedCorner: Shape {
+//    var radius: CGFloat = .infinity
+//    var corners: UIRectCorner = .allCorners
+//
+//    func path(in rect: CGRect) -> Path {
+//        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+//        return Path(path.cgPath)
+//    }
+//}
 
 #Preview {
     WelcomeView()
