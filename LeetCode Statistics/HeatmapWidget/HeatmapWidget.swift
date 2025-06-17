@@ -11,6 +11,8 @@ struct LeetCodeEntry: TimelineEntry {
 
 // MARK: - Timeline Provider
 struct LeetCodeProvider: TimelineProvider {
+    typealias Entry = LeetCodeEntry
+    
     func placeholder(in context: Context) -> LeetCodeEntry {
         LeetCodeEntry(
             date: Date(),
@@ -74,17 +76,35 @@ struct LeetCodeProvider: TimelineProvider {
     }
     
     private func fetchLeetCodeData(completion: @escaping ([(date: Date, count: Int)], Int, String?) -> Void) {
+        print("🔍 Widget: Starting to fetch LeetCode data")
+        
         // Get shared data from your main app using App Groups
         let sharedDefaults = UserDefaults(suiteName: "group.com.chriskersov.leetcodestatistics")
-        if let data = sharedDefaults?.data(forKey: "leetcode_data"),
-           let leetCodeStats = try? JSONDecoder().decode(LeetCodeResponse.self, from: data) {
+        
+        print("🔍 Widget: SharedDefaults created: \(sharedDefaults != nil)")
+        
+        if let data = sharedDefaults?.data(forKey: "leetcode_data") {
+            print("✅ Widget: Found data in UserDefaults, size: \(data.count) bytes")
             
-            let heatmapData = processHeatmapData(from: leetCodeStats)
-            let totalSubmissions = leetCodeStats.data.matchedUser.userCalendar.dailySubmissions.values.reduce(0, +)
-            let userName = leetCodeStats.data.matchedUser.username
-            
-            completion(heatmapData, totalSubmissions, userName)
+            if let leetCodeStats = try? JSONDecoder().decode(LeetCodeResponse.self, from: data) {
+                print("✅ Widget: Successfully decoded LeetCode data")
+                print("✅ Widget: Username: \(leetCodeStats.data.matchedUser.username)")
+                
+                let heatmapData = processHeatmapData(from: leetCodeStats)
+                let totalSubmissions = leetCodeStats.data.matchedUser.userCalendar.dailySubmissions.values.reduce(0, +)
+                let userName = leetCodeStats.data.matchedUser.username
+                
+                print("✅ Widget: Processed heatmap data count: \(heatmapData.count)")
+                print("✅ Widget: Total submissions: \(totalSubmissions)")
+                
+                completion(heatmapData, totalSubmissions, userName)
+            } else {
+                print("❌ Widget: Failed to decode data from UserDefaults")
+                // Fallback to placeholder data
+                completion(generatePlaceholderData(), 247, "username")
+            }
         } else {
+            print("❌ Widget: No data found in UserDefaults")
             // Fallback to placeholder data
             completion(generatePlaceholderData(), 247, "username")
         }
@@ -138,6 +158,25 @@ struct LeetCodeHeatmapWidgetView: View {
             Color.backgroundColour
                 .edgesIgnoringSafeArea(.all)
             
+            // For debugging - replace with heatmap once working
+            VStack {
+                Text("Widget Debug")
+                Text("Data count: \(entry.heatmapData.count)")
+                Text("User: \(entry.userName ?? "no user")")
+                Text("Submissions: \(entry.totalSubmissions)")
+                
+                if entry.heatmapData.count > 100 {
+                    Text("✅ Real data")
+                        .foregroundColor(.green)
+                } else {
+                    Text("❌ Placeholder data")
+                        .foregroundColor(.red)
+                }
+            }
+            .font(.caption)
+            .padding()
+            
+            /* Uncomment this when debugging is done:
             // Match HomeContentView exactly
             let totalColumns = 17
             let totalRows = 7
@@ -209,6 +248,7 @@ struct LeetCodeHeatmapWidgetView: View {
                 }
             }
             .padding(12)
+            */
         }
         .containerBackground(.fill.tertiary, for: .widget)
     }

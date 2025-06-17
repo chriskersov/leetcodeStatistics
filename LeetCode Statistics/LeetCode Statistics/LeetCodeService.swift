@@ -78,9 +78,15 @@ class LeetCodeService {
         
         let leetCodeStats = try JSONDecoder().decode(LeetCodeResponse.self, from: data)
         
+        // After you get your leetCodeStats in your main app
         let sharedDefaults = UserDefaults(suiteName: "group.com.chriskersov.leetcodestatistics")
-        if let encoded = try? JSONEncoder().encode(leetCodeStats) {
-            sharedDefaults?.set(encoded, forKey: "leetcode_data")
+        do {
+            let data = try JSONEncoder().encode(leetCodeStats)
+            sharedDefaults?.set(data, forKey: "leetcode_data")
+            
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch {
+            print("❌ Main App: Failed to save data: \(error)")
         }
         
         // Request widget refresh
