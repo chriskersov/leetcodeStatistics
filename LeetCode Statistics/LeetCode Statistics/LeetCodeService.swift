@@ -5,9 +5,8 @@
 //  Created by chris kersov on 03/01/2025.
 //
 
-// LeetCodeService.swift
-
 import Foundation
+import WidgetKit  // Add this import
 
 class LeetCodeService {
     static func fetchStats(username: String) async throws -> LeetCodeResponse {
@@ -77,6 +76,16 @@ class LeetCodeService {
             throw URLError(.badServerResponse)
         }
         
-        return try JSONDecoder().decode(LeetCodeResponse.self, from: data)
+        let leetCodeStats = try JSONDecoder().decode(LeetCodeResponse.self, from: data)
+        
+        let sharedDefaults = UserDefaults(suiteName: "group.com.chriskersov.leetcodestatistics")
+        if let encoded = try? JSONEncoder().encode(leetCodeStats) {
+            sharedDefaults?.set(encoded, forKey: "leetcode_data")
+        }
+        
+        // Request widget refresh
+        WidgetCenter.shared.reloadAllTimelines()
+        
+        return leetCodeStats
     }
 }

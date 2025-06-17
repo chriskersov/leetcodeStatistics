@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,12 @@
 		994C89D22D22175800EC3682 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C89D12D22175800EC3682 /* Colour.swift */; };
 		994C89D42D221AA600EC3682 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C89D32D221AA600EC3682 /* Font.swift */; };
 		994C89D52D2224CD00EC3682 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F4CEE2D208CD2004F5E86 /* WelcomeView.swift */; };
+		997E67172E017196002FD09C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997E67162E017196002FD09C /* WidgetKit.framework */; };
+		997E67192E017196002FD09C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997E67182E017196002FD09C /* SwiftUI.framework */; };
+		997E672A2E017197002FD09C /* HeatmapWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 997E67142E017196002FD09C /* HeatmapWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		997E67322E017459002FD09C /* LeetCodeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B664682D24B3BC00262197 /* LeetCodeUser.swift */; };
+		997E67332E017462002FD09C /* LeetCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991BD18E2D28814B006AA4B0 /* LeetCodeService.swift */; };
+		997E67362E01769C002FD09C /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C89D12D22175800EC3682 /* Colour.swift */; };
 		9993FE8C2D3041890086BF2B /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9993FE8B2D3041890086BF2B /* URLSession.swift */; };
 		9993FE8E2D44217D0086BF2B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9993FE8D2D44217D0086BF2B /* MainView.swift */; };
 		9993FE902D44218A0086BF2B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9993FE8F2D44218A0086BF2B /* SettingsView.swift */; };
@@ -48,7 +54,28 @@
 			remoteGlobalIDString = 991F4CE82D208CD2004F5E86;
 			remoteInfo = "LeetCode Statistics";
 		};
+		997E67282E017197002FD09C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 991F4CE12D208CD2004F5E86 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 997E67132E017196002FD09C;
+			remoteInfo = HeatmapWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		997E672B2E017197002FD09C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				997E672A2E017197002FD09C /* HeatmapWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9919466B2D5A648600C31F85 /* AddWidgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWidgetsView.swift; sourceTree = "<group>"; };
@@ -70,6 +97,11 @@
 		991F4D0E2D208CD4004F5E86 /* LeetCode_StatisticsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCode_StatisticsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		994C89D12D22175800EC3682 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
 		994C89D32D221AA600EC3682 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		997E67142E017196002FD09C /* HeatmapWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HeatmapWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		997E67162E017196002FD09C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		997E67182E017196002FD09C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		997E67302E017321002FD09C /* LeetCode Statistics.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "LeetCode Statistics.entitlements"; sourceTree = "<group>"; };
+		997E67312E017353002FD09C /* HeatmapWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HeatmapWidgetExtension.entitlements; sourceTree = "<group>"; };
 		9993FE8B2D3041890086BF2B /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		9993FE8D2D44217D0086BF2B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9993FE8F2D44218A0086BF2B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -79,6 +111,20 @@
 		99E67AA92DA839FD0095E1DE /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		99E67AAB2DA83A1F0095E1DE /* ColourExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		997E67392E017C22002FD09C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 997E67132E017196002FD09C /* HeatmapWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		997E671A2E017196002FD09C /* HeatmapWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (997E67392E017C22002FD09C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HeatmapWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		991F4CE62D208CD2004F5E86 /* Frameworks */ = {
@@ -102,15 +148,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		997E67112E017196002FD09C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				997E67192E017196002FD09C /* SwiftUI.framework in Frameworks */,
+				997E67172E017196002FD09C /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		991F4CE02D208CD2004F5E86 = {
 			isa = PBXGroup;
 			children = (
+				997E67312E017353002FD09C /* HeatmapWidgetExtension.entitlements */,
 				991F4CEB2D208CD2004F5E86 /* LeetCode Statistics */,
 				991F4D012D208CD4004F5E86 /* LeetCode StatisticsTests */,
 				991F4D0B2D208CD4004F5E86 /* LeetCode StatisticsUITests */,
+				997E671A2E017196002FD09C /* HeatmapWidget */,
+				997E67152E017196002FD09C /* Frameworks */,
 				991F4CEA2D208CD2004F5E86 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -121,6 +179,7 @@
 				991F4CE92D208CD2004F5E86 /* LeetCode Statistics.app */,
 				991F4CFE2D208CD4004F5E86 /* LeetCode StatisticsTests.xctest */,
 				991F4D082D208CD4004F5E86 /* LeetCode StatisticsUITests.xctest */,
+				997E67142E017196002FD09C /* HeatmapWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,6 +187,7 @@
 		991F4CEB2D208CD2004F5E86 /* LeetCode Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				997E67302E017321002FD09C /* LeetCode Statistics.entitlements */,
 				994C89D02D22174200EC3682 /* Extensions */,
 				991F4CEC2D208CD2004F5E86 /* LeetCode_StatisticsApp.swift */,
 				991F4CEE2D208CD2004F5E86 /* WelcomeView.swift */,
@@ -186,6 +246,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		997E67152E017196002FD09C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				997E67162E017196002FD09C /* WidgetKit.framework */,
+				997E67182E017196002FD09C /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -196,10 +265,12 @@
 				991F4CE52D208CD2004F5E86 /* Sources */,
 				991F4CE62D208CD2004F5E86 /* Frameworks */,
 				991F4CE72D208CD2004F5E86 /* Resources */,
+				997E672B2E017197002FD09C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				997E67292E017197002FD09C /* PBXTargetDependency */,
 			);
 			name = "LeetCode Statistics";
 			productName = "LeetCode Statistics";
@@ -242,6 +313,28 @@
 			productReference = 991F4D082D208CD4004F5E86 /* LeetCode StatisticsUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		997E67132E017196002FD09C /* HeatmapWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 997E672F2E017197002FD09C /* Build configuration list for PBXNativeTarget "HeatmapWidgetExtension" */;
+			buildPhases = (
+				997E67102E017196002FD09C /* Sources */,
+				997E67112E017196002FD09C /* Frameworks */,
+				997E67122E017196002FD09C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				997E671A2E017196002FD09C /* HeatmapWidget */,
+			);
+			name = HeatmapWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = HeatmapWidgetExtension;
+			productReference = 997E67142E017196002FD09C /* HeatmapWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -249,7 +342,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					991F4CE82D208CD2004F5E86 = {
@@ -262,6 +355,9 @@
 					991F4D072D208CD4004F5E86 = {
 						CreatedOnToolsVersion = 15.4;
 						TestTargetID = 991F4CE82D208CD2004F5E86;
+					};
+					997E67132E017196002FD09C = {
+						CreatedOnToolsVersion = 16.3;
 					};
 				};
 			};
@@ -281,6 +377,7 @@
 				991F4CE82D208CD2004F5E86 /* LeetCode Statistics */,
 				991F4CFD2D208CD4004F5E86 /* LeetCode StatisticsTests */,
 				991F4D072D208CD4004F5E86 /* LeetCode StatisticsUITests */,
+				997E67132E017196002FD09C /* HeatmapWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -303,6 +400,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		991F4D062D208CD4004F5E86 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		997E67122E017196002FD09C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -355,6 +459,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		997E67102E017196002FD09C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				997E67332E017462002FD09C /* LeetCodeService.swift in Sources */,
+				997E67362E01769C002FD09C /* Colour.swift in Sources */,
+				997E67322E017459002FD09C /* LeetCodeUser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -367,6 +481,11 @@
 			isa = PBXTargetDependency;
 			target = 991F4CE82D208CD2004F5E86 /* LeetCode Statistics */;
 			targetProxy = 991F4D092D208CD4004F5E86 /* PBXContainerItemProxy */;
+		};
+		997E67292E017197002FD09C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 997E67132E017196002FD09C /* HeatmapWidgetExtension */;
+			targetProxy = 997E67282E017197002FD09C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -495,6 +614,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "LeetCode Statistics/LeetCode Statistics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LeetCode Statistics/Preview Content\"";
@@ -524,6 +644,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "LeetCode Statistics/LeetCode Statistics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LeetCode Statistics/Preview Content\"";
@@ -624,6 +745,64 @@
 			};
 			name = Release;
 		};
+		997E672C2E017197002FD09C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = HeatmapWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 43PQ6QZ6R2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeatmapWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HeatmapWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kersov.leetcodestatistics.LeetCode-Statistics.HeatmapWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		997E672D2E017197002FD09C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = HeatmapWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 43PQ6QZ6R2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeatmapWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HeatmapWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kersov.leetcodestatistics.LeetCode-Statistics.HeatmapWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -659,6 +838,15 @@
 			buildConfigurations = (
 				991F4D192D208CD4004F5E86 /* Debug */,
 				991F4D1A2D208CD4004F5E86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		997E672F2E017197002FD09C /* Build configuration list for PBXNativeTarget "HeatmapWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				997E672C2E017197002FD09C /* Debug */,
+				997E672D2E017197002FD09C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
