@@ -155,28 +155,10 @@ struct LeetCodeHeatmapWidgetView: View {
     
     var body: some View {
         ZStack {
-            Color.backgroundColour
+            // White background in light mode, system background in dark mode
+            Color(.systemBackground)
                 .edgesIgnoringSafeArea(.all)
             
-            // For debugging - replace with heatmap once working
-            VStack {
-                Text("Widget Debug")
-                Text("Data count: \(entry.heatmapData.count)")
-                Text("User: \(entry.userName ?? "no user")")
-                Text("Submissions: \(entry.totalSubmissions)")
-                
-                if entry.heatmapData.count > 100 {
-                    Text("✅ Real data")
-                        .foregroundColor(.green)
-                } else {
-                    Text("❌ Placeholder data")
-                        .foregroundColor(.red)
-                }
-            }
-            .font(.caption)
-            .padding()
-            
-            /* Uncomment this when debugging is done:
             // Match HomeContentView exactly
             let totalColumns = 17
             let totalRows = 7
@@ -214,7 +196,7 @@ struct LeetCodeHeatmapWidgetView: View {
                         
                         if submissionData.count == 0 {
                             Rectangle()
-                                .foregroundColor(Color.backgroundColourThree)
+                                .foregroundColor(Color(.systemGray5))
                                 .aspectRatio(1, contentMode: .fit)
                                 .cornerRadius(3)
                                 .cornerRadius(6, corners: corners)
@@ -233,7 +215,7 @@ struct LeetCodeHeatmapWidgetView: View {
                             }()
                             
                             Rectangle()
-                                .foregroundColor(.leetcodeYellow.opacity(opacity))
+                                .foregroundColor(Color(red: 255/255, green: 160/255, blue: 20/255).opacity(opacity))
                                 .aspectRatio(1, contentMode: .fit)
                                 .cornerRadius(3)
                                 .cornerRadius(6, corners: corners)
@@ -247,21 +229,18 @@ struct LeetCodeHeatmapWidgetView: View {
                     }
                 }
             }
-            .padding(12)
-            */
         }
-        .containerBackground(.fill.tertiary, for: .widget)
+        .containerBackground(Color(.systemBackground), for: .widget)
     }
 }
 
-// Add this to HeatmapWidget.swift
+// Color definitions that adapt to light/dark mode
 extension Color {
     static let backgroundColour = Color(.systemBackground)
-    static let backgroundColourTwo = Color(.secondarySystemBackground)
+    static let backgroundColourTwo = Color(.systemBackground)
     static let backgroundColourThree = Color(.tertiarySystemBackground)
     static let fontColour = Color(.label)
     static let secondaryFontColour = Color(.secondaryLabel)
-//    static let leetcodeYellow = Color.yellow
 }
 
 // MARK: - Widget Configuration
