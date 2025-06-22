@@ -152,11 +152,12 @@ struct LeetCodeProvider: TimelineProvider {
 // MARK: - Widget View
 struct LeetCodeHeatmapWidgetView: View {
     let entry: LeetCodeProvider.Entry
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
-            // White background in light mode, system background in dark mode
-            Color(.systemBackground)
+            // Explicitly set black for dark mode, white for light mode
+            (colorScheme == .dark ? Color.black : Color.white)
                 .edgesIgnoringSafeArea(.all)
             
             // Match HomeContentView exactly
@@ -222,7 +223,7 @@ struct LeetCodeHeatmapWidgetView: View {
                         }
                     } else {
                         Rectangle()
-                            .foregroundColor(Color.backgroundColourTwo)
+                            .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                             .aspectRatio(1, contentMode: .fit)
                             .cornerRadius(3)
                             .cornerRadius(6, corners: corners)
@@ -230,7 +231,7 @@ struct LeetCodeHeatmapWidgetView: View {
                 }
             }
         }
-        .containerBackground(Color(.systemBackground), for: .widget)
+        .containerBackground(colorScheme == .dark ? Color.black : Color.white, for: .widget)
     }
 }
 
